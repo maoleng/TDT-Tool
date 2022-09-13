@@ -2,43 +2,40 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Authenticatable
+class User extends Base
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    public const TIME_VERIFY = 180; //minutes
+    public const MAX_SYSTEM_MAIL_PER_DAY = 3;
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'avatar', 'role',
+        'active', 'count_system_mail_daily', 'google_id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'active' => 'boolean',
     ];
+
+    public function devices(): HasMany
+    {
+        return $this->hasMany(Device::class, 'user_id', 'id');
+    }
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        self::created(static function ($model) {
+            Setting::query()->create([
+                'key' => 'theme',
+                'value' => 'light',
+                'user_id' => $model->id,
+            ]);
+        });
+
+    }
 }

@@ -1,18 +1,23 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Middleware\AuthLogin;
+use App\Http\Middleware\IfAlreadyLogin;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', static function () {
+    return redirect()->route('login');
 });
+
+Route::group(['prefix' => 'auth', 'middleware' => [IfAlreadyLogin::class]], static function() {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/google/redirect', [AuthController::class, 'redirect'])->name('redirect');
+    Route::get('/google/callback', [AuthController::class, 'callback'])->name('callback');
+});
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::group(['middleware' => [AuthLogin::class]], static function () {
+
+
+});
+
