@@ -34,6 +34,11 @@ class User extends Base
         return $this->belongsToMany(Group::class, 'user_group', 'user_id', 'group_id');
     }
 
+    public function promotions(): HasMany
+    {
+        return $this->hasMany(Promotion::class, 'user_id', 'id');
+    }
+
     protected static function boot(): void
     {
         parent::boot();

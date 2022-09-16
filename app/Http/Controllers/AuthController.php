@@ -24,7 +24,11 @@ class AuthController extends Controller
 
     public function callback()
     {
-        $user = Socialite::driver('google')->user();
+        $user = Socialite::driver('google')->stateless()->user();
+        $domain = explode('@', $user->email)[1];
+        if ($domain !== 'student.tdtu.edu.vn') {
+            return redirect()->back();
+        }
         $user = User::query()->updateOrCreate(
             [
                 'email' => $user->email,
@@ -41,7 +45,7 @@ class AuthController extends Controller
         $device = (new DeviceController())->createDevice($user, session()->get('device_id'));
         session()->put('token', $device->token);
 
-        return redirect()->route('template.index');
+        return redirect()->route('index');
 
     }
 
@@ -51,6 +55,6 @@ class AuthController extends Controller
         session()->flush();
         session()->save();
 
-        return redirect()->route('auth.login');
+        return redirect()->route('logout');
     }
 }
