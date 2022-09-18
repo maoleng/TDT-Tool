@@ -14,6 +14,7 @@ class DeviceController extends Controller
         return c(JWT::class)->encode([
             'id' => $user->id,
             'name' => $user->name,
+            'student_id' => $user->studentId,
             'email' => $user->email,
             'role' => $user->role,
             'avatar' => $user->avatar,
