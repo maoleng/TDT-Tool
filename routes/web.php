@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuildScheduleController;
@@ -33,7 +34,6 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
         });
         Route::group(['prefix' => 'mail_notification', 'as' => 'mail_notification.'], static function () {
             Route::get('/', [MailNotificationController::class, 'mailNotification'])->name('index');
-
         });
         Route::group(['prefix' => 'build_schedule', 'as' => 'build_schedule.'], static function () {
             Route::get('/', [BuildScheduleController::class, 'buildSchedule'])->name('index');
@@ -48,6 +48,10 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], static function () {
         Route::group(['prefix' => 'users', 'as' => 'user.'], static function () {
             Route::get('/', [UserController::class, 'index'])->name('index');
+            Route::put('/toggle_active/{user}', [UserController::class, 'toggleActive'])->name('update');
+        });
+        Route::group(['prefix' => 'promotions', 'as' => 'promotion.'], static function () {
+            Route::put('/toggle_active/{promotion}', [PromotionController::class, 'toggleActive'])->name('update');
         });
     });
 });

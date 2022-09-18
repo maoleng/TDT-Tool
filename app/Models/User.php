@@ -39,6 +39,28 @@ class User extends Base
         return $this->hasMany(Promotion::class, 'user_id', 'id');
     }
 
+    public function getStudentIdAttribute(): string
+    {
+        return explode('@', $this->email)[0];
+    }
+
+    public function getActiveNameAttribute(): string
+    {
+        return $this->active === false ? 'Khóa' : 'Kích hoạt';
+    }
+
+    public function getRoleNameAttribute(): string
+    {
+        switch($this->role) {
+            case 0:
+                return 'Quản lý';
+            case 1:
+                return 'Người dùng thường';
+            case 2:
+                return 'Người dùng VIP';
+        }
+    }
+
     protected static function boot(): void
     {
         parent::boot();

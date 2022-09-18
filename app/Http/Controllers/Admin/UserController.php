@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Contracts\View\View as ViewReturn;
 
@@ -16,9 +19,27 @@ class UserController extends Controller
 
     public function index(): ViewReturn
     {
+        $users = User::query()
+            ->with('promotions')
+            ->get();
+
         return view('app.admin.user.index', [
-            'breadcrumb' => 'Người dùng'
+            'breadcrumb' => 'Người dùng',
+            'users' => $users,
         ]);
+    }
+
+    public function toggleActive(User $user): RedirectResponse
+    {
+        if (!$user->active) {
+            $user->active = true;
+        } else {
+            $user->active = false;
+        }
+        $user->save();
+
+        return redirect()->back();
+
     }
 
 
