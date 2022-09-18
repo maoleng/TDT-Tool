@@ -19,7 +19,7 @@
         </li>
         <li class="side-nav__devider my-6"></li>
         <li>
-            <a {!! getAhrefTagContentPC(route('control_panel.read_notification')) !!}>
+            <a {!! getAhrefTagContentPC(route('control_panel.read_notification.index')) !!}>
                 <div class="side-menu__icon">
                     <i data-lucide="file-text"></i>
                 </div>
@@ -29,7 +29,7 @@
             </a>
         </li>
         <li>
-            <a {!! getAhrefTagContentPC(route('control_panel.mail_notification')) !!}>
+            <a {!! getAhrefTagContentPC(route('control_panel.mail_notification.index')) !!}>
                 <div class="side-menu__icon">
                     <i data-lucide="mail"></i>
                 </div>
@@ -39,7 +39,7 @@
             </a>
         </li>
         <li>
-            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule')) !!}>
+            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!}>
                 <div class="side-menu__icon">
                     <i data-lucide="calendar"></i>
                 </div>
@@ -49,7 +49,7 @@
             </a>
         </li>
         <li>
-            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule')) !!}>
+            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!}>
                 <div class="side-menu__icon">
                     <i data-lucide="clock"></i>
                 </div>
@@ -59,12 +59,23 @@
             </a>
         </li>
         <li>
-            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule')) !!}>
+            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!}>
                 <div class="side-menu__icon">
                     <i data-lucide="message-circle"></i>
                 </div>
                 <div class="side-menu__title">
                     Thông báo điểm
+                </div>
+            </a>
+        </li>
+        <li class="side-nav__devider my-6"></li>
+        <li>
+            <a {!! getAhrefTagContentPC(route('admin.user.index')) !!}>
+                <div class="side-menu__icon">
+                    <i data-lucide="message-users"></i>
+                </div>
+                <div class="side-menu__title">
+                    Quản lý người dùng
                 </div>
             </a>
         </li>

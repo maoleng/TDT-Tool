@@ -27,10 +27,18 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
     Route::get('/', [HomeController::class, 'index'])->name('index');
 
     Route::group(['as' => 'control_panel.'], static function () {
-        Route::get('/read_notification', [NotificationController::class, 'readNotification'])->name('read_notification');
-        Route::post('/read', [NotificationController::class, 'readNews'])->name('read');
-        Route::get('/mail_notification', [MailNotificationController::class, 'mailNotification'])->name('mail_notification');
-        Route::get('/build_schedule', [BuildScheduleController::class, 'buildSchedule'])->name('build_schedule');
+        Route::group(['prefix' => 'read_notification', 'as' => 'read_notification.'], static function () {
+            Route::get('/', [NotificationController::class, 'readNotification'])->name('index');
+            Route::post('/read_news', [NotificationController::class, 'readNews'])->name('read_news');
+        });
+        Route::group(['prefix' => 'mail_notification', 'as' => 'mail_notification.'], static function () {
+            Route::get('/', [MailNotificationController::class, 'mailNotification'])->name('index');
+
+        });
+        Route::group(['prefix' => 'build_schedule', 'as' => 'build_schedule.'], static function () {
+            Route::get('/', [BuildScheduleController::class, 'buildSchedule'])->name('index');
+        });
+
     });
 
     Route::group(['prefix' => 'setting', 'as' => 'setting.'], static function () {

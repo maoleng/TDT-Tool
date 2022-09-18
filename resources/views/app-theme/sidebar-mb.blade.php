@@ -24,7 +24,7 @@
             </li>
             <li class="menu__devider my-6"></li>
             <li>
-                <a {!! getAhrefTagContentMB(route('control_panel.mail_notification')) !!}>
+                <a {!! getAhrefTagContentMB(route('control_panel.mail_notification.index')) !!}>
                     <div class="menu__icon">
                         <i data-lucide="mail"></i>
                     </div>
@@ -34,7 +34,7 @@
                 </a>
             </li>
             <li>
-                <a {!! getAhrefTagContentMB(route('control_panel.build_schedule')) !!}>
+                <a {!! getAhrefTagContentMB(route('control_panel.build_schedule.index')) !!}>
                     <div class="menu__icon">
                         <i data-lucide="calendar"></i>
                     </div>
@@ -44,7 +44,7 @@
                 </a>
             </li>
             <li>
-                <a {!! getAhrefTagContentMB(route('control_panel.build_schedule')) !!}>
+                <a {!! getAhrefTagContentMB(route('control_panel.build_schedule.index')) !!}>
                     <div class="menu__icon">
                         <i data-lucide="clock"></i>
                     </div>
@@ -54,7 +54,7 @@
                 </a>
             </li>
             <li>
-                <a {!! getAhrefTagContentMB(route('control_panel.build_schedule')) !!}>
+                <a {!! getAhrefTagContentMB(route('control_panel.build_schedule.index')) !!}>
                     <div class="menu__icon">
                         <i data-lucide="message-circle"></i>
                     </div>
