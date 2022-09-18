@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('promotions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('code', 250)->unique();
-            $table->uuid('user_id');
+            $table->boolean('status')->default(null);
+            $table->uuid('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

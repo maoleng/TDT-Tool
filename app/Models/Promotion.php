@@ -11,7 +11,11 @@ class Promotion extends Model
     use HasFactory;
 
     protected $fillable = [
-        'code', 'user_id'
+        'code', 'active', 'user_id',
+    ];
+
+    protected $casts = [
+        'active' => 'boolean',
     ];
 
     public function user(): BelongsTo
