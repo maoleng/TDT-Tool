@@ -11,6 +11,9 @@ class Notification extends Model
     use HasFactory;
     public $timestamps = false;
 
+    public const NOTIFICATION_AT_LEAST_TO_READ = 50;
+    public const MAX_NOTIFICATION_PAGE = 70;
+
     protected $fillable = [
         'notification_id', 'title', 'content', 'department', 'is_notify', 'created_at',
     ];

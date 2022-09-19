@@ -1,4 +1,5 @@
 <?php
+use Spatie\Crypto\Rsa\KeyPair;
 
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\UserController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\SettingController;
 use App\Http\Middleware\AuthLogin;
 use App\Http\Middleware\IfAlreadyLogin;
 use Illuminate\Support\Facades\Route;
+use Spatie\Crypto\Rsa\PrivateKey;
+use Spatie\Crypto\Rsa\PublicKey;
 
 Route::get('/', static function () {
     return redirect()->route('login');
@@ -31,6 +34,7 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
         Route::group(['prefix' => 'read_notification', 'as' => 'read_notification.'], static function () {
             Route::get('/', [NotificationController::class, 'readNotification'])->name('index');
             Route::post('/read_news', [NotificationController::class, 'readNews'])->name('read_news');
+            Route::post('/read_all', [NotificationController::class, 'readAll'])->name('read_all');
         });
         Route::group(['prefix' => 'mail_notification', 'as' => 'mail_notification.'], static function () {
             Route::get('/', [MailNotificationController::class, 'mailNotification'])->name('index');
@@ -56,4 +60,3 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
     });
 });
 
-Route::get('/test', [NotificationController::class, 'readNews']);

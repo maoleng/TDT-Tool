@@ -32,57 +32,64 @@
                     <button id="button_submit" type="submit" class="btn btn-primary w-24">Tiến hành</button>
                 </div>
 
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div class="mt-5"></div>
-                        <div class="alert alert-danger alert-dismissible show flex items-center mb-2" role="alert">
-                            <i data-lucide="alert-octagon" class="w-6 h-6 mr-2"></i>
-                            {{ $error }}
-                            <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close">
-                                <i data-lucide="x" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    @endforeach
-                @endif
-                @if(session()->has('message'))
-                    <div class="mt-5"></div>
-                    <div class="alert alert-danger alert-dismissible show flex items-center mb-2" role="alert">
-                        <i data-lucide="alert-octagon" class="w-6 h-6 mr-2"></i>
-                        {{session()->get('message')}}
-                        <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close">
-                            <i data-lucide="x" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                @endif
+
             </div>
 
         </div>
     </form>
 
-    <div class="intro-y col-span-12 lg:col-span-6">
-        <div class="intro-y box">
-            <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
-                <h2 class="font-medium text-base mr-auto">Đọc toàn bộ thông báo</h2>
-                <div class="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0">
-                    <i data-lucide="lock" class="mr-0 ml-3"></i>
-                    <label class="form-check-label ml-3" for="show-example-1">VIP USER</label>
+    <form action="{{route('control_panel.read_notification.read_all')}}" id="form" method="post" class="intro-y col-span-12 lg:col-span-6">
+        @csrf
+        <div class="intro-y col-span-12 lg:col-span-6">
+            <div class="intro-y box">
+                <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                    <h2 class="font-medium text-base mr-auto">Đọc toàn bộ thông báo</h2>
+                    <div class="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0">
+                        <i data-lucide="lock" class="mr-0 ml-3"></i>
+                        <label class="form-check-label ml-3" for="show-example-1">VIP USER</label>
+                    </div>
                 </div>
-            </div>
-            <div id="basic-select" class="p-5">
-                <div>
-                    <label for="crud-form-1" class="form-label">Mã số sinh viên</label>
-                    <input id="crud-form-1" type="text" name="title" class="form-control form-control-rounded w-full" placeholder="{{authed()->student_id}}" disabled>
-                </div>
-                <div class="mt-5">
-                    <label for="crud-form-1" class="form-label">Mật khẩu</label>
-                    <input id="crud-form-1" type="password" name="sender" class="form-control form-control-rounded w-full" placeholder="Nhập mật khẩu của tài khoản stdtportal">
-                </div>
-                <div class="text-right mt-5">
-                    <button id="button_submit" type="submit" class="btn btn-primary w-24">Tiến hành</button>
+                <div id="basic-select" class="p-5">
+                    <div>
+                        <label for="crud-form-1" class="form-label">Mã số sinh viên</label>
+                        <input id="crud-form-1" type="text" class="form-control form-control-rounded w-full" placeholder="{{authed()->student_id}}" disabled>
+                    </div>
+                    <div class="mt-5">
+                        <label for="crud-form-1" class="form-label">Mật khẩu</label>
+                        <input id="crud-form-1" type="password" name="tdt_password" class="form-control form-control-rounded w-full" placeholder="Nhập mật khẩu của tài khoản stdtportal">
+                    </div>
+                    <div class="text-right mt-5">
+                        <button id="button_submit" type="submit" class="btn btn-primary w-24">Tiến hành</button>
+                    </div>
                 </div>
             </div>
         </div>
+    </form>
+
+    <div class="intro-y col-span-12 lg:col-span-6">
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger alert-dismissible show flex items-center mb-2" role="alert">
+                    <i data-lucide="alert-octagon" class="w-6 h-6 mr-2"></i>
+                    {{ $error }}
+                    <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            @endforeach
+        @endif
+        @if(session()->has('message'))
+            <div class="alert alert-danger alert-dismissible show flex items-center mb-2" role="alert">
+                <i data-lucide="alert-octagon" class="w-6 h-6 mr-2"></i>
+                {{session()->get('message')}}
+                <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+        @endif
     </div>
+
+
     @if(session()->has('success'))
         <div id="success-modal-preview" class="modal overflow-y-auto show" tabindex="-1" aria-hidden="false" style="padding-left: 0px; margin-top: 0px; margin-left: 0px; z-index: 10000;">
             <div class="modal-dialog">

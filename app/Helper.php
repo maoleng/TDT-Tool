@@ -22,18 +22,6 @@ if (!function_exists('getConfig')) {
     }
 }
 
-if (!function_exists('plusOneSystemMail')) {
-    function plusOneSystemMail($user): bool
-    {
-        $max = User::MAX_SYSTEM_MAIL_PER_DAY;
-        $current = $user->count_system_mail_daily;
-        if ($current >= $max ) {
-            return false;
-        }
-        $user->increment('count_system_mail_daily');
-        return true;
-    }
-}
 if (!function_exists('authed')) {
     function authed()
     {
@@ -44,6 +32,7 @@ if (!function_exists('authed')) {
         return c(JWT::class)->match($token);
     }
 }
+
 if (!function_exists('getSettings')) {
     function isDarkMode(): bool
     {
@@ -54,6 +43,7 @@ if (!function_exists('getSettings')) {
             ->first());
     }
 }
+
 if (!function_exists('getAhrefTagContentPC')) {
     function getAhrefTagContentPC($route): string
     {
@@ -65,6 +55,7 @@ if (!function_exists('getAhrefTagContentPC')) {
         return "href=$route class=\"side-menu\"";
     }
 }
+
 if (!function_exists('getAhrefTagContentMB')) {
     function getAhrefTagContentMB($route): string
     {

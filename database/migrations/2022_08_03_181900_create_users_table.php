@@ -21,7 +21,7 @@ return new class extends Migration
             $table->longText('avatar')->nullable();
             $table->integer('role')->default(1);
             $table->boolean('active')->default(0);
-            $table->integer('count_system_mail_daily')->default(0);
+            $table->boolean('is_read_notification_today')->default(0);
             $table->string('google_id',250)->nullable();
             $table->boolean('is_notify_score')->default(false);
             $table->integer('notify_notification')->default(null)->nullable();
