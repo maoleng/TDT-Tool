@@ -30,6 +30,8 @@ class BaseRequest extends FormRequest
             'password' => 'Mật khẩu',
             'retype_password' => 'Mật khẩu nhập lại',
             'device_id' => 'Mã của thiết bị',
+            'tdt_password' => 'Mật khẩu',
+            'code' => 'Mã kích hoạt',
         ];
     }
 
