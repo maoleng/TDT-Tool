@@ -12,6 +12,7 @@
                 <th class="text-center whitespace-nowrap">Ảnh</th>
                 <th class="text-center whitespace-nowrap">Tên & MSSV</th>
                 <th class="text-center whitespace-nowrap">Vai trò</th>
+                <th class="text-center whitespace-nowrap">Số mã chưa dùng</th>
                 <th class="text-center whitespace-nowrap">Lưu mật khẩu</th>
                 <th class="text-center whitespace-nowrap">Tình trạng</th>
                 <th class="text-center whitespace-nowrap">Hành động</th>
@@ -36,6 +37,11 @@
                     <td class="table-report__action w-2">
                         <span class="flex justify-center items-center font-medium whitespace-nowrap">
                             {{$user->roleName}}
+                        </span>
+                    </td>
+                    <td class="table-report__action w-2">
+                        <span class="flex justify-center items-center font-medium whitespace-nowrap">
+                            {{$user->promotions_count}}
                         </span>
                     </td>
                     <td class="table-report__action w-2">

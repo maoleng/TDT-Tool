@@ -21,6 +21,9 @@ class UserController extends Controller
     {
         $users = User::query()
             ->with('promotions')
+            ->withCount(['promotions' => function ($q) {
+                $q->whereNull('status');
+            }])
             ->get();
 
         return view('app.admin.user.index', [
