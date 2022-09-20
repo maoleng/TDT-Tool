@@ -51,15 +51,15 @@
                 </div>
                 <div id="basic-select" class="p-5">
                     <div>
-                        <label for="crud-form-1" class="form-label">Mã số sinh viên</label>
-                        <input id="crud-form-1" type="text" class="form-control form-control-rounded w-full" placeholder="{{authed()->student_id}}" disabled>
+                        <label class="form-label">Mã số sinh viên</label>
+                        <input type="text" class="form-control form-control-rounded w-full" placeholder="{{authed()->student_id}}" disabled>
                     </div>
                     <div class="mt-5">
-                        <label for="crud-form-1" class="form-label">Mật khẩu</label>
-                        <input id="crud-form-1" type="password" name="tdt_password" class="form-control form-control-rounded w-full" placeholder="Nhập mật khẩu của tài khoản stdtportal">
+                        <label class="form-label">Mật khẩu</label>
+                        <input @if (authed()->role === 1) disabled @endif type="password" name="tdt_password" class="form-control form-control-rounded w-full" placeholder="Nhập mật khẩu của tài khoản stdtportal">
                     </div>
                     <div class="text-right mt-5">
-                        <button id="button_submit" type="submit" class="btn btn-primary w-24">Tiến hành</button>
+                        <button @if (authed()->role === 1) disabled @endif type="submit" class="btn btn-primary w-24">Tiến hành</button>
                     </div>
                 </div>
             </div>

@@ -100,8 +100,12 @@ class NotificationController extends Controller
      */
     public function readAll(ReadAllNotificationRequest $request): RedirectResponse
     {
-        // Check xem đã dùng chức năng trong hôm nay chưa
+        // Check role và check xem đã dùng chức năng trong hôm nay chưa
         $user = User::query()->where('id', authed()->id)->first();
+        if ($user->role === 1) {
+            Session::flash('message', 'Bạn không phải người dùng VIP');
+            return redirect()->back();
+        }
         if ($user->is_read_notification_today) {
             Session::flash('message', 'Đã hết lượt đọc trong hôm nay, vui lòng quay lại vào ngày mai');
             return redirect()->back();
@@ -131,7 +135,7 @@ class NotificationController extends Controller
         }
         preg_match('/\r\n.+\d+\r\n/', $match[0], $match);
         preg_match('/\d+/', $match[0], $count_news);
-        if ($count_news[0] < Notification::NOTIFICATION_AT_LEAST_TO_READ) {
+        if ((int)$count_news[0] < Notification::NOTIFICATION_AT_LEAST_TO_READ) {
             Session::flash('message', 'Số thông báo chưa đọc phải lớn hơn ' . Notification::NOTIFICATION_AT_LEAST_TO_READ);
             return redirect()->back();
         }
@@ -154,7 +158,7 @@ class NotificationController extends Controller
                 $post_with_faculties[] = [$post_id[0], $short_faculty];
             }
         }
-
+        dd('ngat code');
         // Tiến hành đọc thông báo
         $client->request('GET', TDT::NEWS_URL, $options);
         $cookie = $client->getConfig('cookies')->toArray()[3];
