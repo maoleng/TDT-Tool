@@ -10,7 +10,7 @@ class Config extends Base
     public $timestamps = false;
 
     protected $fillable = [
-        'key', 'value',
+        'group', 'key', 'value',
     ];
 
 

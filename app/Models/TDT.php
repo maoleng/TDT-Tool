@@ -16,19 +16,21 @@ class TDT extends Base
     public const LIST_NEWS_URL = 'https://studentnews.tdtu.edu.vn/Thongbao/TintucList';
     public const SEEN_NEW_URL = 'https://studentnews.tdtu.edu.vn/ThongBao/UpdateDaXem';
     public const NEWS_URL = 'https://studentnews.tdtu.edu.vn';
+    public const NEW_DETAIL_URL = 'https://studentnews.tdtu.edu.vn/ThongBao/Detail';
+    public const GET_FILE_URL = 'https://studentnews.tdtu.edu.vn/TinTuc/Download';
     public const OLD_STDPORTAL_URL = 'https://old-stdportal.tdtu.edu.vn';
 
     /**
      * @throws GuzzleException
      * @throws JsonException
      */
-    public function loginAndAuthenticate($student_id, $tdt_password): ?Client
+    public function loginAndAuthenticate($student_id = null, $tdt_password = null): ?Client
     {
         $client = new Client(['cookies' => true]);
         $login_response = $client->request('POST', self::LOGIN_URL, [
             'form_params' => [
-                'user' => $student_id,
-                'pass' => $tdt_password,
+                'user' => $student_id ?? env('DEFAULT_USERNAME'),
+                'pass' => $tdt_password ?? env('DEFAULT_PASSWORD'),
             ],
         ])->getBody()->getContents();
         $login_response = json_decode($login_response, false, 512, JSON_THROW_ON_ERROR);
