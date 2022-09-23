@@ -14,10 +14,12 @@ if (!function_exists('c')) {
     }
 }
 
-if (!function_exists('getConfig')) {
-    function getConfig($key)
+if (!function_exists('getConfigValue')) {
+    function getConfigValue($group_and_key)
     {
-        $config = Config::query()->where('key', $key)->first();
+        [$group, $key] = explode('.', $group_and_key);
+        $config = Config::query()->where('key', $key)->where('group', $group)->first();
+
         return $config->value ?? null;
     }
 }
