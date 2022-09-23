@@ -158,7 +158,6 @@ class NotificationController extends Controller
                 $post_with_faculties[] = [$post_id[0], $short_faculty];
             }
         }
-        dd('ngat code');
         // Tiến hành đọc thông báo
         $client->request('GET', TDT::NEWS_URL, $options);
         $cookie = $client->getConfig('cookies')->toArray()[3];
