@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('configs', function (Blueprint $table) {
+        Schema::create('departments', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('group', 250)->nullable();
-            $table->string('key', 250);
-            $table->string('value', 250);
+            $table->string('unit_id', 250)->unique();
+            $table->integer('type')->nullable();
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('configs');
+        Schema::dropIfExists('departments');
     }
 };

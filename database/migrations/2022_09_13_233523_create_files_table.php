@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('source', 250);
             $table->string('path', 250);
-            $table->float('size');
+            $table->float('size')->nullable();
             $table->boolean('active')->default(1);
             $table->uuid('notification_id');
             $table->foreign('notification_id')->references('id')->on('notifications');

@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('notification_id', 10);
-            $table->string('title', 250);
+        Schema::create('user_department', function (Blueprint $table) {
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->uuid('department_id');
-            $table->foreign('department_id')->references('id')->on('departments');
-            $table->datetime('created_at');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->primary(['user_id', 'department_id']);
         });
     }
 
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('user_department');
     }
 };
