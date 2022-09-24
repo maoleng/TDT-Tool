@@ -150,7 +150,7 @@ class DatabaseSeeder extends Seeder
                     ],
                     [
                         'unit_id' => 'P' . ($i < 10 ? '0' . $i : $i),
-                        'type' => 'order',
+                        'type' => 'other',
                     ]
                 );
             }
