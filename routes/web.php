@@ -1,4 +1,12 @@
 <?php
+
+use App\Jobs\SendMailNotification;
+use App\Mail\MailNotification;
+use App\Models\Department;
+use App\Models\Notification;
+use App\Models\TDT;
+use App\Models\User;
+use Illuminate\Support\Facades\Session;
 use Spatie\Crypto\Rsa\KeyPair;
 
 use App\Http\Controllers\Admin\PromotionController;
@@ -54,9 +62,23 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
             Route::get('/', [UserController::class, 'index'])->name('index');
             Route::put('/toggle_active/{user}', [UserController::class, 'toggleActive'])->name('update');
         });
-        Route::group(['prefix' => 'promotions', 'as' => 'promotion.'], static function () {
-            Route::put('/toggle_active/{promotion}', [PromotionController::class, 'toggleActive'])->name('update');
+        Route::group(['prefix' => 'promotions', 'as' => 'promotion.'], static function () {Route::put('/toggle_active/{promotion}', [PromotionController::class, 'toggleActive'])->name('update');
         });
     });
 });
 
+Route::get('/test', function () {
+    $data = 'my secret data';
+    $privateKey = PrivateKey::fromString(env('PRIVATE_KEY'));
+    $encryptedData = $privateKey->encrypt($data);
+    $publicKey = PublicKey::fromString(env('PUBLIC_KEY'));
+    $decryptedData = $publicKey->decrypt($encryptedData);
+    dd($decryptedData);
+});
+Route::get('/test123', function () {
+
+
+
+
+
+});

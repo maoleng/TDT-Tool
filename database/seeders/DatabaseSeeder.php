@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
     public function createRootData(): void
     {
         $user = User::query()->create([
-            'email' => 'feature451@gmail.com',
+            'email' => '521H0504@student.tdtu.edu.vn',
             'name' => 'Bui Huu Loc',
         ]);
         $department_ids = Department::query()->get()->pluck('id')->toArray();
