@@ -77,56 +77,83 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'unit_id' => '5',
+                'type' => 'faculty',
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'B',
+                'type' => 'faculty',
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'G',
+                'type' => 'popular',
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P02',
+                'type' => 'popular',
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P03',
+                'type' => 'popular',
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P04',
+                'type' => 'popular',
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P07',
+                'type' => 'popular',
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P09',
+                'type' => 'popular',
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P12',
+                'type' => 'popular',
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P15',
+                'type' => 'popular',
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P27',
+                'type' => 'popular',
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P35',
+                'type' => 'popular',
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P48',
+                'type' => 'popular',
             ],
-
         ]);
+        for($i = 2; $i <= 50; $i++) {
+            if (in_array($i, [5, 6, 8, 10, 11, 13, 14, 16, 17, 18, 19, 20, 21, 22, 26, 28, 29, 30, 31, 32, 33, 34,
+                36, 37, 38, 39, 42, 43, 44, 45, 46, 47, 50,]))
+            {
+                Department::query()->firstOrCreate(
+                    [
+                        'unit_id' => 'P' . ($i < 10 ? '0' . $i : $i),
+                    ],
+                    [
+                        'unit_id' => 'P' . ($i < 10 ? '0' . $i : $i),
+                        'type' => 'orders',
+                    ]
+                );
+            }
+        }
     }
 }

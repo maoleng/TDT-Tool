@@ -49,8 +49,7 @@ class TDT extends Base
 
     public function getUnitId($value)
     {
-        switch (strtolower($value)) {
-
+        switch (mb_convert_case($value, MB_CASE_LOWER)) {
             case 'khoa công nghệ thông tin':
                 return '5';
             case 'khoa tài chính ngân hàng':
@@ -80,6 +79,72 @@ class TDT extends Base
                 return 'P35';
             case 'viện chính sách kinh tế và kinh doanh (ibep)':
                 return 'P48';
+            case 'phòng điện toán và máy tính':
+                return 'P05';
+            case 'phòng quản lý phát triển khcn':
+                return 'P06';
+            case 'phòng quản trị thiết bị':
+                return 'P08';
+            case 'phòng tổ chức hành chính':
+                return 'P10';
+            case 'phòng tt':
+                return 'P11';
+            case 'viện incos':
+                return 'P13';
+            case 'viện incredi':
+                return 'P14';
+            case 'vp đảng ủy và công đoàn':
+                return 'P16';
+            case 't':
+                return 'P17';
+            case 'cơ sở cà mau':
+                return 'P18';
+            case 'cơ sở nha trang':
+                return 'P19';
+            case 'tổ tư vấn học đường':
+                return 'P20';
+            case 'ban pr':
+                return 'P21';
+            case 'trung tâm tư vấn và kiểm định xây dựng':
+                return 'P22';
+            case 'trung tâm thực hành':
+                return 'P26';
+            case 'trung tâm việt nam học':
+                return 'P28';
+            case 'trung tâm nghiên cứu và đào tạo kinh tế ứng dụng':
+                return 'P29';
+            case 'thư viện':
+                return 'P30';
+            case 'trung tâm an toàn lao động và công nghệ môi trường':
+                return 'P31';
+            case 'trung tâm phát triển khoa học quản lý và công nghệ ứng dụng':
+                return 'P32';
+            case 'trung tâm ứng dụng và phát triển mỹ thuật công nghiệp':
+                return 'P33';
+            case 'trung tâm hợp tác châu âu':
+                return 'P34';
+            case 'ban quản lý dự án':
+                return 'P36';
+            case 'cơ sở bảo lộc':
+                return 'P37';
+            case 'tt ngoại ngữ - tin học - bồi dưỡng văn hóa':
+                return 'P38';
+            case 'trung tâm ứng dụng - đào tạo và phát triển các giải pháp kinh tế':
+                return 'P39';
+            case 'trung tâm chuyên gia hàn quốc':
+                return 'P42';
+            case 'trung tâm bata':
+                return 'P43';
+            case 'viện aimas':
+                return 'P44';
+            case 'công ty tđt':
+                return 'P45';
+            case 'vfis':
+                return 'P46';
+            case 'viện gris':
+                return 'P47';
+            case 'viện hợp tác':
+                return 'P50';
         }
     }
 }
