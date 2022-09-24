@@ -155,5 +155,11 @@ class DatabaseSeeder extends Seeder
                 );
             }
         }
+        foreach (['A', 'C', 'D', 'E', 'F', 'H', 'I', 'K', '0', '1', '2', '3', '4', '6', '7', '8', '9',] as $faculty) {
+            Department::query()->create([
+                'unit_id' => $faculty,
+                'type' => 'faculty',
+            ]);
+        }
     }
 }

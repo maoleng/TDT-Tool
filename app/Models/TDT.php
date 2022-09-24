@@ -145,6 +145,60 @@ class TDT extends Base
                 return 'P47';
             case 'viện hợp tác':
                 return 'P50';
+            case 'khoa lao động công đoàn':
+                return 'A';
+            case 'khoa toán thống kê':
+                return 'C';
+            case 'khoa khoa học thể thao':
+                return 'D';
+            case 'khoa luật':
+                return 'E';
+            case 'saxion':
+                return 'F';
+            case 'khoa dược':
+                return 'H';
+            case 'khoa giáo dục quốc tế':
+                return 'I';
+            case 'trung tâm giáo dục quốc phòng - an ninh':
+                return 'K';
+            case 'khoa ngoại ngữ':
+                return '0';
+            case 'khoa mỹ thuật công nghiệp':
+                return '1';
+            case 'khoa kế toán':
+                return '2';
+            case 'khoa khoa học xã hội và nhân văn':
+                return '3';
+            case 'khoa điện - điện tử':
+                return '4';
+            case 'khoa khoa học ứng dụng':
+                return '6';
+            case 'khoa quản trị kinh doanh':
+                return '7';
+            case 'khoa kỹ thuật công trình':
+                return '8';
+            case 'khoa môi trường và bảo hộ lao động':
+                return '9';
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
