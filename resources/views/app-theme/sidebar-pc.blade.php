@@ -39,7 +39,7 @@
             </a>
         </li>
         <li>
-            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!}>
+            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!} style="pointer-events: none;cursor: default;">
                 <div class="side-menu__icon">
                     <i data-lucide="calendar"></i>
                 </div>
@@ -49,7 +49,7 @@
             </a>
         </li>
         <li>
-            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!}>
+            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!} style="pointer-events: none;cursor: default;">
                 <div class="side-menu__icon">
                     <i data-lucide="clock"></i>
                 </div>
@@ -59,7 +59,7 @@
             </a>
         </li>
         <li>
-            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!}>
+            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!} style="pointer-events: none;cursor: default;">
                 <div class="side-menu__icon">
                     <i data-lucide="message-circle"></i>
                 </div>
@@ -68,6 +68,7 @@
                 </div>
             </a>
         </li>
+        @if (authed()->role === 3)
         <li class="side-nav__devider my-6"></li>
         <li>
             <a {!! getAhrefTagContentPC(route('admin.user.index')) !!}>
@@ -79,5 +80,6 @@
                 </div>
             </a>
         </li>
+        @endif
     </ul>
 </nav>

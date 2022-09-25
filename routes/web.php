@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AdminAuthenticate;
 use App\Jobs\SendMailNotification;
 use App\Mail\MailNotification;
 use App\Models\Department;
@@ -58,7 +59,7 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
         Route::put('/update', [SettingController::class, 'update'])->name('update');
     });
 
-    Route::group(['prefix' => 'admin', 'as' => 'admin.'], static function () {
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AdminAuthenticate::class]], static function () {
         Route::group(['prefix' => 'users', 'as' => 'user.'], static function () {
             Route::get('/', [UserController::class, 'index'])->name('index');
             Route::put('/toggle_active/{user}', [UserController::class, 'toggleActive'])->name('update');

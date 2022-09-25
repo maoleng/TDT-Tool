@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Promotion;
+use App\Models\Setting;
 use Faker\Factory as Faker;
 use App\Models\Config;
 use App\Models\Department;
@@ -39,9 +41,38 @@ class DatabaseSeeder extends Seeder
 
     public function createRootData(): void
     {
-        $user = User::query()->create([
+        User::query()->insert([
+            'id' => 'master-user-id',
             'email' => '521H0504@student.tdtu.edu.vn',
             'name' => 'Bui Huu Loc',
+            'role' => 3,
+            'active' => 1,
+        ]);
+        $user = User::query()->first();
+        Setting::query()->create([
+            'key' => 'theme',
+            'value' => 'light',
+            'user_id' => $user->id,
+        ]);
+        Promotion::query()->insert([
+            [
+                'id' => 'id-code-1',
+                'code' => 'ma-code-1',
+                'status' => 1,
+                'user_id' => $user->id,
+            ],
+            [
+                'id' => 'id-code-2',
+                'code' => 'ma-code-2',
+                'status' => 0,
+                'user_id' => $user->id,
+            ],
+            [
+                'id' => 'id-code-3',
+                'code' => 'ma-code-3',
+                'status' => null,
+                'user_id' => $user->id,
+            ],
         ]);
         $department_ids = Department::query()->get()->pluck('id')->toArray();
         $user->subscribedDepartments()->attach($department_ids);

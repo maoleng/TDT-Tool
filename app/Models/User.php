@@ -59,12 +59,12 @@ class User extends Base
     public function getRoleNameAttribute(): string
     {
         switch($this->role) {
-            case 0:
-                return 'Quản lý';
             case 1:
                 return 'Người dùng thường';
             case 2:
                 return 'Người dùng VIP';
+            case 3:
+                return 'Quản lý';
         }
     }
 
@@ -78,31 +78,6 @@ class User extends Base
                 'value' => 'light',
                 'user_id' => $model->id,
             ]);
-            if($model->email === '521h0504@student.tdtu.edu.vn') {
-                $model->id = 'master-user-id';
-                $model->role = 0;
-                $model->save();
-                Promotion::query()->insert([
-                    [
-                        'id' => 'id-code-1',
-                        'code' => 'ma-code-1',
-                        'status' => 1,
-                        'user_id' => $model->id,
-                    ],
-                    [
-                        'id' => 'id-code-2',
-                        'code' => 'ma-code-2',
-                        'status' => 0,
-                        'user_id' => $model->id,
-                    ],
-                    [
-                        'id' => 'id-code-3',
-                        'code' => 'ma-code-3',
-                        'status' => null,
-                        'user_id' => $model->id,
-                    ],
-                ]);
-            }
             Promotion::query()->create([
                 'code' => Str::random(25),
                 'user_id' => $model->id,
