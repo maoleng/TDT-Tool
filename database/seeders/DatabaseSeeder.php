@@ -25,16 +25,7 @@ class DatabaseSeeder extends Seeder
 
         $this->createDepartments();
         $this->createConfigs();
-
         $this->createRootData();
-
-        for ($i = 1; $i <= 5; $i++) {
-            User::query()->create([
-                'email' => $faker->email,
-                'name' => $faker->name,
-            ]);
-        }
-
 
 
     }

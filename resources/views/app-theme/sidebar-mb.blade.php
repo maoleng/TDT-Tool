@@ -76,7 +76,7 @@
             @if (authed()->role === 3)
             <li class="nav__devider my-6"></li>
             <li>
-                <a {!! getAhrefTagContentPC(route('admin.user.index')) !!}>
+                <a {!! getAhrefTagContentMB(route('admin.user.index')) !!}>
                     <div class="menu__icon">
                         <i data-lucide="message-users"></i>
                     </div>
