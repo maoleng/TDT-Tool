@@ -46,6 +46,7 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
         });
         Route::group(['prefix' => 'mail_notification', 'as' => 'mail_notification.'], static function () {
             Route::get('/', [MailNotificationController::class, 'mailNotification'])->name('index');
+            Route::post('/choose_department', [MailNotificationController::class, 'chooseDepartment'])->name('choose_department');
         });
         Route::group(['prefix' => 'build_schedule', 'as' => 'build_schedule.'], static function () {
             Route::get('/', [BuildScheduleController::class, 'buildSchedule'])->name('index');
@@ -76,7 +77,8 @@ Route::get('/test', function () {
     dd($decryptedData);
 });
 Route::get('/test123', function () {
-
+    $a =Department::all()->append('departmentName');
+    dd($a->toArray());
 
 
 

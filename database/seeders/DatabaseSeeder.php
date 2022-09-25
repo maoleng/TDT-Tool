@@ -77,67 +77,67 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'unit_id' => '5',
-                'type' => 'faculty',
+                'type' => Department::FACULTY,
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'B',
-                'type' => 'faculty',
+                'type' => Department::FACULTY,
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'G',
-                'type' => 'popular',
+                'type' => Department::POPULAR,
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P02',
-                'type' => 'popular',
+                'type' => Department::POPULAR,
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P03',
-                'type' => 'popular',
+                'type' => Department::POPULAR,
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P04',
-                'type' => 'popular',
+                'type' => Department::POPULAR,
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P07',
-                'type' => 'popular',
+                'type' => Department::POPULAR,
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P09',
-                'type' => 'popular',
+                'type' => Department::POPULAR,
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P12',
-                'type' => 'popular',
+                'type' => Department::POPULAR,
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P15',
-                'type' => 'popular',
+                'type' => Department::POPULAR,
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P27',
-                'type' => 'popular',
+                'type' => Department::POPULAR,
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P35',
-                'type' => 'popular',
+                'type' => Department::POPULAR,
             ],
             [
                 'id' => Str::uuid(),
                 'unit_id' => 'P48',
-                'type' => 'popular',
+                'type' => Department::POPULAR,
             ],
         ]);
         for($i = 2; $i <= 50; $i++) {
@@ -150,7 +150,7 @@ class DatabaseSeeder extends Seeder
                     ],
                     [
                         'unit_id' => 'P' . ($i < 10 ? '0' . $i : $i),
-                        'type' => 'other',
+                        'type' => Department::OTHER,
                     ]
                 );
             }
@@ -158,7 +158,7 @@ class DatabaseSeeder extends Seeder
         foreach (['A', 'C', 'D', 'E', 'F', 'H', 'I', 'K', '0', '1', '2', '3', '4', '6', '7', '8', '9',] as $faculty) {
             Department::query()->create([
                 'unit_id' => $faculty,
-                'type' => 'faculty',
+                'type' => Department::FACULTY,
             ]);
         }
     }

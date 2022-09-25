@@ -10,6 +10,11 @@ class Department extends Base
     use HasFactory;
     public $timestamps = false;
 
+    public const FACULTY = 'faculty';
+    public const POPULAR = 'popular';
+    public const OTHER = 'other';
+
+
     protected $fillable = [
         'unit_id', 'type',
     ];

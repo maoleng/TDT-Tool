@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChooseDepartmentRequest;
 use App\Models\Department;
 use App\Models\File;
 use App\Models\Notification;
 use App\Models\TDT;
+use App\Models\User;
 use Exception;
 use Illuminate\Contracts\View\View as ViewReturn;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -25,9 +28,44 @@ class MailNotificationController extends Controller
 
     public function mailNotification(): ViewReturn
     {
+        $departments = Department::query()->get();
+        $subscribed_departments = Department::query()->whereHas('subscribers', static function ($q) {
+            $q->where('user_id', authed()->id);
+        })->get()->pluck('id')->toArray();
+        $data = [];
+        foreach ($departments as $department) {
+            if ($department->type === Department::FACULTY) {
+                $data[Department::FACULTY][] = $department;
+            } elseif ($department->type === Department::POPULAR) {
+                $data[Department::POPULAR][] = $department;
+            } else {
+                $data[Department::OTHER][] = $department;
+            }
+        }
+
         return view('app.control_panel.mail_notification', [
-            'breadcrumb' => 'Nhận'
+            'breadcrumb' => 'Nhận',
+            'departments' => $data,
+            'subscribed_departments' => $subscribed_departments,
         ]);
+    }
+
+    public function chooseDepartment(ChooseDepartmentRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $faculties = $data['faculty'] ?? [];
+        $populars = $data['popular'] ?? [];
+        $others = $data['other'] ?? [];
+        $departments = array_merge($faculties, $populars, $others);
+        $user = User::query()->find(authed()->id);
+        $user->subscribedDepartments()->sync($departments);
+
+        return redirect()->back();
+    }
+
+    public function chooseOther(Request $request)
+    {
+        dd($request->all());
     }
 
     #[ArrayShape([
