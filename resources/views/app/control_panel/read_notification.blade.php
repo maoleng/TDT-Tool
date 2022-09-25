@@ -46,7 +46,7 @@
                     <h2 class="font-medium text-base mr-auto">Đọc toàn bộ thông báo</h2>
                     <div class="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0">
                         <i data-lucide="lock" class="mr-0 ml-3"></i>
-                        <label class="form-check-label ml-3" for="show-example-1">VIP USER</label>
+                        <label class="form-check-label ml-3" for="show-example-1">CONTACT</label>
                     </div>
                 </div>
                 <div id="basic-select" class="p-5">
