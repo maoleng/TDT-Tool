@@ -31,9 +31,9 @@ class User extends Base
         return $this->hasMany(Device::class, 'user_id', 'id');
     }
 
-    public function groups(): BelongsToMany
+    public function groups(): HasMany
     {
-        return $this->belongsToMany(Group::class, 'user_group', 'user_id', 'group_id');
+        return $this->hasMany(Group::class, 'user_id', 'id');
     }
 
     public function promotions(): HasMany

@@ -12,10 +12,10 @@ class Schedule extends Base
     public $timestamps = false;
 
     protected $fillable = [
-        'date_id', 'group_id',
+        'date_id', 'group_id', 'room'
     ];
 
-    public function dateInYear(): BelongsTo
+    public function date(): BelongsTo
     {
         return $this->belongsTo(Date::class, 'date_id', 'id');
     }

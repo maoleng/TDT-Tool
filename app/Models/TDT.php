@@ -11,7 +11,8 @@ use JsonException;
 class TDT extends Base
 {
     public const LOGIN_URL = 'https://stdportal.tdtu.edu.vn/Login/SignIn';
-    public const AUTH_URL = 'http://sso.tdt.edu.vn/Authenticate.aspx?ReturnUrl=https://studentnews.tdtu.edu.vn';
+    public const AUTH_NEWS_URL = 'http://sso.tdt.edu.vn/Authenticate.aspx?ReturnUrl=https://studentnews.tdtu.edu.vn';
+    public const AUTH_SCHEDULE_URL = 'http://sso.tdt.edu.vn/Authenticate.aspx?ReturnUrl=http://thoikhoabieudukien.tdtu.edu.vn';
     public const GET_NEWS_URL = 'https://stdportal.tdtu.edu.vn/home/LayThongBaoMoiSinhVien';
     public const LIST_NEWS_URL = 'https://studentnews.tdtu.edu.vn/Thongbao/TintucList';
     public const SEEN_NEW_URL = 'https://studentnews.tdtu.edu.vn/ThongBao/UpdateDaXem';
@@ -24,7 +25,7 @@ class TDT extends Base
      * @throws GuzzleException
      * @throws JsonException
      */
-    public function loginAndAuthenticate($student_id = null, $tdt_password = null): ?Client
+    public function loginAndAuthenticate($student_id = null, $tdt_password = null, $url = null): ?Client
     {
         $client = new Client(['cookies' => true]);
         $login_response = $client->request('POST', self::LOGIN_URL, [
@@ -38,7 +39,7 @@ class TDT extends Base
             return null;
         }
         $token = substr($login_response->url, -8);
-        $client->request('GET', self::AUTH_URL, [
+        $client->request('GET', $url ?? self::AUTH_NEWS_URL, [
             'headers' => [
                 'Cookie' => "AUTH_COOKIE=$token|" . now()->addDay()->format('m/d/Y 11:59:00') . ' PM',
             ]

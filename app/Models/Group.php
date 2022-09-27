@@ -3,17 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Group extends Model
+class Group extends Base
 {
     use HasFactory;
     public $timestamps = false;
 
     protected $fillable = [
-        'group_id', 'semester', 'room', 'period_id', 'day_in_week', 'weeks', 'count_student', 'subject_id',
+        'group_id', 'semester_id', 'subject_id', 'user_id'
     ];
 
     protected $casts = [
@@ -25,14 +25,24 @@ class Group extends Model
         return $this->belongsTo(Subject::class, 'subject_id', 'id');
     }
 
-    public function period(): BelongsTo
+    public function periods(): BelongsToMany
     {
-        return $this->belongsTo(Period::class, 'period_id', 'id');
+        return $this->belongsToMany(Period::class, 'group_period', 'group_id', 'period_id');
     }
 
-    public function groups(): BelongsToMany
+    public function user(): BelongsTo
     {
-        return $this->belongsToMany(User::class, 'user_group', 'group_id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function semesters(): BelongsTo
+    {
+        return $this->belongsTo(Semester::class, 'semester_id', 'id');
+    }
+
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(Schedule::class, 'group_id', 'id');
     }
 
 }

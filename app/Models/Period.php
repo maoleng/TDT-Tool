@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Period extends Model
+class Period extends Base
 {
     use HasFactory;
     public $timestamps = false;
@@ -15,8 +14,8 @@ class Period extends Model
         'period', 'started_ed', 'ended_at',
     ];
 
-    public function groups(): HasMany
+    public function groups(): BelongsToMany
     {
-        return $this->hasMany(Group::class, 'period_id', 'id');
+        return $this->belongsToMany(Group::class, 'group_period', 'period_id', 'group_id');
     }
 }

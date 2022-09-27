@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('dates', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->datetime('date_time');
+            $table->datetime('date');
             $table->integer('week');
+            $table->uuid('semester_id');
+            $table->foreign('semester_id')->references('id')->on('semesters');
         });
     }
 

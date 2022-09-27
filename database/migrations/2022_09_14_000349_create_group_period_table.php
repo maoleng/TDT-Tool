@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('schedules', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('date_id');
-            $table->foreign('date_id')->references('id')->on('dates');
+        Schema::create('group_period', function (Blueprint $table) {
+            $table->uuid('period_id');
+            $table->foreign('period_id')->references('id')->on('periods')->onDelete('cascade');
             $table->uuid('group_id');
-            $table->foreign('group_id')->references('id')->on('groups');
-            $table->string('room', 250);
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
+            $table->primary(['period_id', 'group_id']);
         });
     }
 
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schedules');
+        Schema::dropIfExists('group_period');
     }
 };

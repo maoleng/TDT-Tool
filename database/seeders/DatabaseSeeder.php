@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Period;
 use App\Models\Promotion;
+use App\Models\Semester;
 use App\Models\Setting;
 use Faker\Factory as Faker;
 use App\Models\Config;
@@ -26,7 +28,17 @@ class DatabaseSeeder extends Seeder
         $this->createDepartments();
         $this->createConfigs();
         $this->createRootData();
+        $this->createPeriods();
 
+        Config::query()->create(['key' => 'first_dash_week', 'value' => '1']);
+        $default = [
+            'start_date' => '2022-08-15',
+            'end_date' => '2023-08-20',
+            'semester_1_start_date' => '2022-08-15',
+            'semester_2_start_date' => '2023-01-02',
+            'semester_3_start_date' => '2023-06-19',
+        ];
+        (new \App\Http\Controllers\ConfigController())->createStudyPlan(null, $default);
 
     }
 
@@ -67,6 +79,103 @@ class DatabaseSeeder extends Seeder
         ]);
         $department_ids = Department::query()->get()->pluck('id')->toArray();
         $user->subscribedDepartments()->attach($department_ids);
+    }
+
+    public function createPeriods(): void
+    {
+        $data = [
+            [
+                'id' => Str::uuid(),
+                'period' => 1,
+                'started_ed' => '06:50',
+                'ended_at' => '07:40',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 2,
+                'started_ed' => '07:40',
+                'ended_at' => '08:30',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 3,
+                'started_ed' => '08:30',
+                'ended_at' => '09:20',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 4,
+                'started_ed' => '9:30',
+                'ended_at' => '10:20',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 5,
+                'started_ed' => '10:20',
+                'ended_at' => '11:10',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 6,
+                'started_ed' => '11:10',
+                'ended_at' => '12:00',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 7,
+                'started_ed' => '12:45',
+                'ended_at' => '13:35',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 8,
+                'started_ed' => '13:35',
+                'ended_at' => '14:25',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 9,
+                'started_ed' => '14:25',
+                'ended_at' => '15:15',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 10,
+                'started_ed' => '15:25',
+                'ended_at' => '16:15',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 11,
+                'started_ed' => '16:15',
+                'ended_at' => '17:05',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 12,
+                'started_ed' => '17:05',
+                'ended_at' => '17:55',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 13,
+                'started_ed' => '18:05',
+                'ended_at' => '18:55',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 14,
+                'started_ed' => '18:55',
+                'ended_at' => '19:45',
+            ],
+            [
+                'id' => Str::uuid(),
+                'period' => 15,
+                'started_ed' => '19:45',
+                'ended_at' => '20:35',
+            ],
+        ];
+        Period::query()->insert($data);
     }
 
     public function createConfigs(): void

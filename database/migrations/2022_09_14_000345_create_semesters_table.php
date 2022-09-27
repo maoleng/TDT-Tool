@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_group', function (Blueprint $table) {
-            $table->uuid('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->uuid('group_id');
-            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
+        Schema::create('semesters', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->integer('semester');
+            $table->integer('start_year');
+            $table->integer('end_year');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_group');
+        Schema::dropIfExists('semesters');
     }
 };

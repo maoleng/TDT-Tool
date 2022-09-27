@@ -16,15 +16,12 @@ return new class extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('group_id', 10);
-            $table->integer('semester');
-            $table->string('room', 250);
-            $table->uuid('period_id');
-            $table->foreign('period_id')->references('id')->on('periods');
-            $table->integer('day_in_week');
-            $table->json('weeks');
-            $table->integer('count_student');
+            $table->uuid('semester_id');
+            $table->foreign('semester_id')->references('id')->on('semesters');
             $table->uuid('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects');
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
