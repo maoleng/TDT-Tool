@@ -39,7 +39,7 @@
             </a>
         </li>
         <li>
-            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!} style="pointer-events: none;cursor: default;">
+            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!}>
                 <div class="side-menu__icon">
                     <i data-lucide="calendar"></i>
                 </div>
