@@ -3,18 +3,28 @@
 use App\Http\Middleware\AdminAuthenticate;
 use App\Jobs\SendMailNotification;
 use App\Mail\MailNotification;
+use App\Models\Config;
+use App\Models\Date;
 use App\Models\Department;
+use App\Models\Group;
 use App\Models\Notification;
+use App\Models\Period;
+use App\Models\Schedule;
+use App\Models\Subject;
 use App\Models\TDT;
 use App\Models\User;
+use App\Models\Session as SessionModel;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Spatie\Crypto\Rsa\KeyPair;
 
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuildScheduleController;
-use App\Http\Controllers\ControlPanel;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailNotificationController;
 use App\Http\Controllers\NotificationController;
@@ -51,6 +61,8 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
         });
         Route::group(['prefix' => 'build_schedule', 'as' => 'build_schedule.'], static function () {
             Route::get('/', [BuildScheduleController::class, 'buildSchedule'])->name('index');
+            Route::post('/store', [BuildScheduleController::class, 'store'])->name('store');
+            Route::post('/download', [BuildScheduleController::class, 'downloadSchedule'])->name('download');
         });
 
     });
@@ -75,13 +87,10 @@ Route::get('/test', function () {
     $encryptedData = $privateKey->encrypt($data);
     $publicKey = PublicKey::fromString(env('PUBLIC_KEY'));
     $decryptedData = $publicKey->decrypt($encryptedData);
-    dd($decryptedData);
+
 });
-Route::get('/test123', function () {
-    $a =Department::all()->append('departmentName');
-    dd($a->toArray());
 
-
-
-
+Route::get('/t', function () {
+    $a = Carbon::make('2022/09/23 19:00:00')->format('Ymd\THis');
+    dd($a);
 });

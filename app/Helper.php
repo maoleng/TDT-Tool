@@ -2,6 +2,7 @@
 
 use App\Lib\JWT\JWT;
 use App\Models\Config;
+use App\Models\Session;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
@@ -67,5 +68,12 @@ if (!function_exists('getAhrefTagContentMB')) {
         }
 
         return "href=$route class=\"menu\"";
+    }
+}
+
+if (!function_exists('checkCreatedSchedule')) {
+    function checkCreatedSchedule(): bool
+    {
+        return !empty(Session::query()->where('user_id', authed()->id)->where('active', true)->first());
     }
 }

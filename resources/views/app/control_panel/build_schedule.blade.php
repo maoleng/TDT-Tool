@@ -1,33 +1,72 @@
 @extends('app-theme.master')
 
 @section('title')
-    Thêm mẫu tin nhắn
+    Xếp lịch học vào Google Calendar
 @endsection
 
 @section('content')
-    <form action="" id="form" method="post" class="intro-y col-span-12 lg:col-span-6">
-        <div class="intro-y col-span-12 lg:col-span-6">
+{{--    <div class="intro-y col-span-12">--}}
+{{--        <div class="intro-y col-span-12">--}}
+{{--            <div class="grid grid-cols-12 gap-6 mt-5">--}}
+{{--                <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">--}}
+{{--                    <div class="report-box zoom-in">--}}
+{{--                        <div class="box p-5">--}}
+{{--                            <div class="flex">--}}
+{{--                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="shopping-cart" data-lucide="shopping-cart" class="lucide lucide-shopping-cart report-box__icon text-primary"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path></svg>--}}
+{{--                                <div class="ml-auto">--}}
+{{--                                    <div class="report-box__indicator bg-success tooltip cursor-pointer">--}}
+{{--                                        33% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-up" data-lucide="chevron-up" class="lucide lucide-chevron-up w-4 h-4 ml-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="text-3xl font-medium leading-8 mt-6">Học kì</div>--}}
+{{--                            <div class="text-base text-slate-500 mt-1">1</div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+{{--                <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">--}}
+{{--                    <div class="report-box zoom-in">--}}
+{{--                        <div class="box p-5">--}}
+{{--                            <div class="flex">--}}
+{{--                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="shopping-cart" data-lucide="shopping-cart" class="lucide lucide-shopping-cart report-box__icon text-primary"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path></svg>--}}
+{{--                                <div class="ml-auto">--}}
+{{--                                    <div class="report-box__indicator bg-success tooltip cursor-pointer">--}}
+{{--                                        33% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-up" data-lucide="chevron-up" class="lucide lucide-chevron-up w-4 h-4 ml-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="text-3xl font-medium leading-8 mt-6">Năm học</div>--}}
+{{--                            <div class="text-base text-slate-500 mt-1">2022-2023</div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--        </div>--}}
+{{--    </div>--}}
+    <form action="{{route('control_panel.build_schedule.store')}}" method="post" class="intro-y col-span-12 lg:col-span-6">
+        <div class="intro-y col-span-12">
             @csrf
             <div class="intro-y box p-5">
-                <h2 class="font-medium text-base mr-auto">Nội dung mẫu tin nhắn</h2>
-                <br>
-                <div>
-                    <label for="crud-form-1" class="form-label">Tiêu đề</label>
-                    <input id="crud-form-1" type="text" name="title" class="form-control form-control-rounded w-full" placeholder="Tiêu đề của mail">
-                </div>
-                <div class="mt-3">
-                    <label for="crud-form-1" class="form-label">Tên người gửi</label>
-                    <input id="crud-form-1" type="text" name="sender" class="form-control form-control-rounded w-full" placeholder="Tên của người sẽ gửi mail cho bạn">
-                </div>
-                <div class="mt-3">
-                    <label>Nội dung của mail</label>
-                    <div class="mt-2">
-                        <textarea name="content" id="myeditorinstance">Hello, World!</textarea>
+                <div class="flex flex-col sm:flex-row items-center border-b border-slate-200/60 dark:border-darkmode-400">
+                    <h2 class="font-medium text-base mr-auto">Nhập lịch</h2>
+                    <div class="mb-5 form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0">
+                        <label class="form-check-label ml-0" for="show-example-1">Bằng mật khẩu stdtportal</label>
+                        <input disabled id="toggle" class=" show-code form-check-input mr-0 ml-3" type="checkbox">
                     </div>
                 </div>
-                <input type="hidden" name="date" id="date">
-                <input type="hidden" name="time" id="time">
-                <input type="hidden" name="cron_time" id="repeat_time">
+                <div class="mt-5">
+                    <div>
+                        <label id="toggle_label_input" for="crud-form-1" class="form-label">Mã nguồn thời khóa biểu tổng quát</label>
+                        <textarea id="toggle_input" type="text" name="source" class="form-control form-control-rounded w-full" placeholder="<!DOCTYPE HTML>...."></textarea>
+                    </div>
+                    <div class="text-right mt-5">
+                        <button class="btn btn-primary w-32 mr-2 mb-2">
+                            <i data-lucide="file-plus" class="w-4 h-4 mr-2"></i> Nhập lịch
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
@@ -35,69 +74,88 @@
     <div class="intro-y col-span-12 lg:col-span-6">
         <div class="intro-y box">
             <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
-                <h2 class="font-medium text-base mr-auto">Thời gian</h2>
-                <div class="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0">
-                    <label class="form-check-label ml-0" for="show-example-1">Lặp lại</label>
-                    <input id="toggle-repeat" class="show-code form-check-input mr-0 ml-3" type="checkbox">
-                </div>
+                <h2 class="font-medium text-base mr-auto">Xuất lịch</h2>
             </div>
-            <div id="basic-select" class="p-5">
-                <div class="preview">
-                    <div id="repeat" class="mt-5">
-                        <div class="mt-5">
-                            <label>Sẽ tự động gửi vào</label>
-                            <div class="mt-2">
-                                <input id="no_repeat_date" type="text" class="datepicker w-56 mx-auto" data-single-mode="true">
-                                <select id="no_repeat_time" data-placeholder="Chọn giờ" class="tom-select w-full mt-5">
-                                    @for($i = 0; $i <= 23; $i++)
-                                        @if ($i < 10)<option value="0{{$i}}:00">{{$i}} giờ</option>
-                                        @else<option value="{{$i}}:00">{{$i}} giờ</option>
-                                        @endif
-                                    @endfor
-                                </select>
-                            </div>
+            <form action="{{route('control_panel.build_schedule.download')}}" method="post" class="p-5">
+                @csrf
+                <div class="">
+                    <label>Xuất lịch bắt đầu từ</label>
+                    <div class="flex flex-col sm:flex-row mt-2">
+                        <div class="form-check mr-5">
+                            <input id="radio-switch-2" class="form-check-input" type="radio" checked name="start_at" value="now">
+                            <label class="form-check-label" for="radio-switch-2">Hôm nay đến hết học kì</label>
                         </div>
-                    </div>
-{{--                    ===============--}}
-                    <div id="no-repeat" class="mt-5" style="display: none">
-                        <div class="mt-5">
-                            <label>Lặp lại sau mỗi</label>
-                            <div class="mt-2">
-                                <select id="repeat_queue" data-placeholder="Select your favorite actors" class="tom-select w-full">
-                                    <option value="0 */2 * * *">2 giờ</option>
-                                    <option value="0 */3 * * *">3 giờ</option>
-                                    <option value="0 */4 * * *">4 giờ</option>
-                                    <option value="0 */6 * * *">6 giờ</option>
-                                    <option value="0 */8 * * *">8 giờ</option>
-                                    <option value="0 */12 * * *">12 giờ</option>
-                                    <option value="0 0 */1 * *">1 ngày</option>
-                                    <option value="0 0 */2 * *">2 ngày</option>
-                                    <option value="0 0 */3 * *">3 ngày</option>
-                                    <option value="0 0 */4 * *">4 ngày</option>
-                                    <option value="0 0 */5 * *">5 ngày</option>
-                                    <option value="0 0 */6 * *">6 ngày</option>
-                                    <option value="0 0 */7 * *">7 ngày</option>
-                                </select>
-                            </div>
+                        <div class="form-check mr-2 mt-2 sm:mt-0">
+                            <input id="radio-switch-1" class="form-check-input" type="radio" name="start_at" value="begin">
+                            <label class="form-check-label" for="radio-switch-1">Đầu học kì đến hết học kì</label>
                         </div>
                     </div>
                 </div>
-                <div class="text-right mt-5">
-                    <a href="" type="button" class="btn btn-outline-secondary w-24 mr-1">Hủy</a>
-                    <button id="button_submit" type="submit" class="btn btn-primary w-24">Lưu</button>
+                <div class="mt-5">
+                    <label>Định dạng tệp</label>
+                    <div class="flex flex-col sm:flex-row mt-2">
+                        <div class="form-check mr-5">
+                            <input disabled id="radio-switch-2" class="form-check-input" type="radio" name="file_type" value="ics">
+                            <label class="form-check-label" for="radio-switch-2">.ics</label>
+                        </div>
+                        <div class="form-check mr-2 mt-2 sm:mt-0">
+                            <input id="radio-switch-1" class="form-check-input" type="radio" checked name="file_type" value="csv">
+                            <label class="form-check-label" for="radio-switch-1">.csv</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="mt-5">
+                    <div class="text-right mt-5">
+                        <button class="btn btn-pending w-32 mr-2 mb-2" @if (checkCreatedSchedule() === false) disabled @endif>
+                            <i data-lucide="download" class="w-4 h-4 mr-2"></i> Xuất lịch
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+    <div class="intro-y col-span-12 lg:col-span-6">
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger alert-dismissible show flex items-center mb-2" role="alert">
+                    <i data-lucide="alert-octagon" class="w-6 h-6 mr-2"></i>
+                    {{ $error }}
+                    <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            @endforeach
+        @endif
+        @if(session()->has('message'))
+            <div class="alert alert-danger alert-dismissible show flex items-center mb-2" role="alert">
+                <i data-lucide="alert-octagon" class="w-6 h-6 mr-2"></i>
+                {{session()->get('message')}}
+                <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+        @endif
+    </div>
+
+
+    @if(session()->has('success'))
+        <div id="success-modal-preview" class="modal overflow-y-auto show" tabindex="-1" aria-hidden="false" style="padding-left: 0px; margin-top: 0px; margin-left: 0px; z-index: 10000;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="p-5 text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="check-circle" data-lucide="check-circle" class="lucide lucide-check-circle w-16 h-16 text-success mx-auto mt-3"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            <div class="text-3xl mt-5">{{session()->get('success')['title']}}</div>
+                            <div class="text-slate-500 mt-2">{{session()->get('success')['content']}}</div>
+                        </div>
+                        <div class="px-5 pb-8 text-center">
+                            <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     @endif
 
@@ -105,62 +163,21 @@
 
 
 @section('script')
-
-    <script src="https://cdn.tiny.cloud/1/free/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea#myeditorinstance',
-            @if (isDarkMode())
-            content_css: 'tinymce-5-dark',
-            skin: 'oxide-dark',
-            @endif
-            height: 270,
-            plugins: 'advcode table checklist image advlist autolink lists link charmap preview codesample imagetool fullscreen',
-            toolbar: 'insertfile | blocks| bold italic | fullscreen | image | link | preview | codesample | bullist numlist checklist |  alignleft aligncenter alignright',
-            menubar: 'insert view',
-            mobile: {
-                menubar: true
-            },
-            setup: function(editor) {
-                editor.on('init', function (e) {
-                    setTimeout(function() {
-                        $("button[tabindex='-1'].tox-notification__dismiss.tox-button.tox-button--naked.tox-button--icon")[0].click()
-                    }, 10);
-
-                })
-            },
-            file_picker_types: 'image',
-            file_picker_callback: function (cb, value, meta) {
-                var input = document.createElement('input')
-                input.setAttribute('type', 'file');
-                input.setAttribute('accept', 'image/*')
-                input.onchange = function () {
-                    var file = this.files[0];
-                    var reader = new FileReader()
-                    reader.onload = function () {
-                        var id = 'blobid' + (new Date()).getTime()
-                        var blobCache =  tinymce.activeEditor.editorUpload.blobCache
-                        var base64 = reader.result.split(',')[1]
-                        var blobInfo = blobCache.create(id, file, base64)
-                        blobCache.add(blobInfo)
-                        cb(blobInfo.blobUri(), { title: file.name })
-                    }
-                    reader.readAsDataURL(file)
-                }
-                input.click()
-            },
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-        });
-    </script>
     <script>
         $(document).ready(function () {
-            $("#toggle-repeat").on('change', function() {
-                if($("#toggle-repeat").is(':checked')) {
-                    $("#repeat").css('display', 'none')
-                    $("#no-repeat").css('display', 'block')
+            $("#toggle").on('change', function() {
+                let toggle_input = $("#toggle_input")
+                if($("#toggle").is(':checked')) {
+                    $("#toggle_label_input").text('Mật khẩu stdtportal')
+                    toggle_input.attr('type', 'password')
+                    toggle_input.attr('name', 'tdt_password')
+                    toggle_input.attr('placeholder', 'Nhập mật khẩu của tài khoản stdtportal')
+
                 } else {
-                    $("#repeat").css('display', 'block')
-                    $("#no-repeat").css('display', 'none')
+                    $("#toggle_label_input").text('Mã nguồn thời khóa biểu tổng quát')
+                    toggle_input.attr('type', 'text')
+                    toggle_input.attr('name', 'source')
+                    toggle_input.attr('placeholder', '<!DOCTYPE HTML>....')
                 }
             })
 
