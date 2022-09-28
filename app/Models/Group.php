@@ -13,7 +13,7 @@ class Group extends Base
     public $timestamps = false;
 
     protected $fillable = [
-        'group_id', 'semester_id', 'subject_id', 'user_id'
+        'group_id', 'semester_id', 'subject_id', 'session_id'
     ];
 
     protected $casts = [
@@ -30,9 +30,9 @@ class Group extends Base
         return $this->belongsToMany(Period::class, 'group_period', 'group_id', 'period_id');
     }
 
-    public function user(): BelongsTo
+    public function session(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(Session::class, 'session_id', 'id');
     }
 
     public function semesters(): BelongsTo

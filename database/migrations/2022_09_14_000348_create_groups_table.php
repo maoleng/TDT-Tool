@@ -20,8 +20,8 @@ return new class extends Migration
             $table->foreign('semester_id')->references('id')->on('semesters');
             $table->uuid('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects');
-            $table->uuid('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->uuid('session_id');
+            $table->foreign('session_id')->references('id')->on('sessions');
         });
     }
 

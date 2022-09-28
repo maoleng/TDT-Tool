@@ -31,9 +31,10 @@ class User extends Base
         return $this->hasMany(Device::class, 'user_id', 'id');
     }
 
-    public function groups(): HasMany
+    public function sessions(): HasMany
     {
-        return $this->hasMany(Group::class, 'user_id', 'id');
+        return $this->hasMany(Session::class, 'user_id', 'id')
+            ->where('active', true)->limit(1);
     }
 
     public function promotions(): HasMany
