@@ -23,6 +23,7 @@
                 </a>
             </li>
             <li class="menu__devider my-6"></li>
+            @if (authed()->role !== 1)
             <li>
                 <a {!! getAhrefTagContentMB(route('control_panel.read_notification.index')) !!}>
                     <div class="menu__icon">
@@ -33,6 +34,7 @@
                     </div>
                 </a>
             </li>
+            @endif
             <li>
                 <a {!! getAhrefTagContentMB(route('control_panel.mail_notification.index')) !!}>
                     <div class="menu__icon">

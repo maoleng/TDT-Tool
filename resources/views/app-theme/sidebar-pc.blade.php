@@ -18,6 +18,7 @@
             </a>
         </li>
         <li class="side-nav__devider my-6"></li>
+        @if (authed()->role !== 1)
         <li>
             <a {!! getAhrefTagContentPC(route('control_panel.read_notification.index')) !!}>
                 <div class="side-menu__icon">
@@ -28,6 +29,7 @@
                 </div>
             </a>
         </li>
+        @endif
         <li>
             <a {!! getAhrefTagContentPC(route('control_panel.mail_notification.index')) !!}>
                 <div class="side-menu__icon">
