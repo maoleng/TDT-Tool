@@ -227,7 +227,7 @@ class BuildScheduleController extends Controller
     {
         preg_match('/Room:.+\)/', $item, $match);
         preg_match('/>[\w_ -]+/', $match[0], $match);
-        $room = substr($match[0], 1);
+        $room = substr($match[0] ?? 'nnull', 1);
         $day = $item[strlen($item) - 1];
         preg_match('/\(\w{6} /', $item, $match);
         $subject_id = substr($match[0], 1, 6);
