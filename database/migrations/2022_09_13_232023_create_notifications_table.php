@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('notification_id', 10);
-            $table->string('title', 250);
+            $table->text('title');
             $table->uuid('department_id');
             $table->foreign('department_id')->references('id')->on('departments');
             $table->datetime('created_at');
