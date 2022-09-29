@@ -88,7 +88,7 @@ class BuildScheduleController extends Controller
         foreach ($groups as $group) {
             foreach ($group->schedules as $schedule) {
                 if ($options['start_at'] === 'now') {
-                    if ($schedule->date->date->gt(now())) {
+                    if ($schedule->date->date->gt(now()->subDay())) {
                         $min_period = $group->periods->min('period');
                         $max_period = $group->periods->max('period');
                         $calendars[$schedule->id]['title'] = $group->subject->name;
