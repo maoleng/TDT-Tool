@@ -53,12 +53,27 @@ class MailNotificationController extends Controller
     public function chooseDepartment(ChooseDepartmentRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $faculties = $data['faculty'] ?? [];
-        $populars = $data['popular'] ?? [];
-        $others = $data['other'] ?? [];
-        $departments = array_merge($faculties, $populars, $others);
         $user = User::query()->find(authed()->id);
-        $user->subscribedDepartments()->sync($departments);
+
+        if (isset($data['choose_fast'])) {
+            if ($data['choose_fast'] === 'all') {
+                $department_ids = Department::query()->get()->pluck('id')->toArray();
+            } elseif ($data['choose_fast'] === 'delete') {
+                $department_ids = [];
+            } elseif ($data['choose_fast'] === 'default') {
+                $faculty = substr(authed()->student_id, 0, 1);
+                $department_ids =Department::query()->where('type', Department::POPULAR)
+                    ->get()->pluck('id')->toArray();
+                $department_ids[] = Department::query()->where('type', Department::FACULTY)
+                    ->where('unit_id', $faculty)->first()->id;
+            }
+        } else {
+            $faculty_ids = $data['faculty'] ?? [];
+            $popular_ids = $data['popular'] ?? [];
+            $other_ids = $data['other'] ?? [];
+            $department_ids = array_merge($faculty_ids, $popular_ids, $other_ids);
+        }
+        $user->subscribedDepartments()->sync($department_ids);
 
         return redirect()->back();
     }

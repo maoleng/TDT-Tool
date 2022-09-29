@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\ArrayShape;
 
 class ChooseDepartmentRequest extends BaseRequest
@@ -27,7 +28,9 @@ class ChooseDepartmentRequest extends BaseRequest
             'other.*' => [
                 'exists:App\Models\Department,id'
             ],
-
+            'choose_fast' => [
+                Rule::in(['all', 'default', 'delete']),
+            ],
         ];
 
     }
