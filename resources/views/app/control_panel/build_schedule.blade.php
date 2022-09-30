@@ -95,11 +95,11 @@
                     <label>Định dạng tệp</label>
                     <div class="flex flex-col sm:flex-row mt-2">
                         <div class="form-check mr-5">
-                            <input disabled id="radio-switch-2" class="form-check-input" type="radio" name="file_type" value="ics">
+                            <input checked id="radio-switch-2" class="form-check-input" type="radio" name="file_type" value="ics">
                             <label class="form-check-label" for="radio-switch-2">.ics</label>
                         </div>
                         <div class="form-check mr-2 mt-2 sm:mt-0">
-                            <input id="radio-switch-1" class="form-check-input" type="radio" checked name="file_type" value="csv">
+                            <input id="radio-switch-1" class="form-check-input" type="radio" name="file_type" value="csv">
                             <label class="form-check-label" for="radio-switch-1">.csv</label>
                         </div>
                     </div>

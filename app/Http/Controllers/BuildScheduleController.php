@@ -12,11 +12,11 @@ use App\Models\Schedule;
 use App\Models\Session as SessionModel;
 use App\Models\Subject;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\View\View as ViewReturn;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
@@ -78,6 +78,80 @@ class BuildScheduleController extends Controller
             ->with('sessions.groups.periods')
             ->first()->sessions[0]->groups;
 
+        if ($options['file_type'] === 'csv') {
+            $calendars = $this->getCalendarCSV($groups, $options);
+        } else {
+            $calendars = $this->getCalendarICS($groups, $options);
+        }
+
+        return $this->download($calendars, $options);
+    }
+
+    private function getCalendarICS($groups, $options): array
+    {
+        $calendars = [];
+        $calendars[] = 'BEGIN:VCALENDAR';
+        $calendars[] = 'PRODID:-//Google Inc//Google Calendar 70.9054//EN';
+        $calendars[] = 'VERSION:2.0';
+        $calendars[] = 'CALSCALE:GREGORIAN';
+        $calendars[] = 'METHOD:PUBLISH';
+        $calendars[] = 'X-WR-CALNAME:' . authed()->student_id . '@student.tdtu.edu.vn';
+        $calendars[] = 'X-WR-TIMEZONE:Asia/Ho_Chi_Minh';
+
+        foreach ($groups as $group) {
+            foreach ($group->schedules as $schedule) {
+                if ($options['start_at'] === 'now') {
+                    if ($schedule->date->date->gt(now()->subDay())) {
+                        $start_time = $group->periods->where('period', $group->periods->min('period'))->first()->started_ed;
+                        $end_time = $group->periods->where('period', $group->periods->max('period'))->first()->ended_at;
+                        $start = Carbon::make($schedule->date->date->toDateString() . ' ' . $start_time)->format('Ymd\THis');
+                        $end = Carbon::make($schedule->date->date->toDateString() . ' ' . $end_time)->format('Ymd\THis');
+
+                        $calendars[] = 'BEGIN:VEVENT';
+                        $calendars[] = 'DTSTART:' . $start;
+                        $calendars[] = 'DTEND:' . $end;
+                        $calendars[] = 'DESCRIPTION:' .
+                            '<b>' .
+                            'Phòng: ' . $schedule->room . '<br>' .
+                            'Mã môn học: ' . $group->subject->subject_id . '<br>' .
+                            'Mã nhóm: ' . $group->group_id .
+                            '</b>';
+                        $calendars[] = 'SEQUENCE:0';
+                        $calendars[] = 'STATUS:CONFIRMED';
+                        $calendars[] = 'SUMMARY:' . $group->subject->name;
+                        $calendars[] = 'TRANSP:OPAQUE';
+                        $calendars[] = 'END:VEVENT';
+                    }
+                } else {
+                    $start_time = $group->periods->where('period', $group->periods->min('period'))->first()->started_ed;
+                    $end_time = $group->periods->where('period', $group->periods->max('period'))->first()->ended_at;
+                    $start = Carbon::make($schedule->date->date->toDateString() . ' ' . $start_time)->format('Ymd\THis');
+                    $end = Carbon::make($schedule->date->date->toDateString() . ' ' . $end_time)->format('Ymd\THis');
+
+                    $calendars[] = 'BEGIN:VEVENT';
+                    $calendars[] = 'DTSTART:' . $start;
+                    $calendars[] = 'DTEND:' . $end;
+                    $calendars[] = 'DESCRIPTION:' .
+                        '<b>' .
+                        'Phòng: ' . $schedule->room . '<br>' .
+                        'Mã môn học: ' . $group->subject->subject_id . '<br>' .
+                        'Mã nhóm: ' . $group->group_id .
+                        '</b>';
+                    $calendars[] = 'SEQUENCE:0';
+                    $calendars[] = 'STATUS:CONFIRMED';
+                    $calendars[] = 'SUMMARY:' . $group->subject->name;
+                    $calendars[] = 'TRANSP:OPAQUE';
+                    $calendars[] = 'END:VEVENT';
+                }
+            }
+        }
+        $calendars[] = 'END:VCALENDAR';
+
+        return $calendars;
+    }
+
+    private function getCalendarCSV($groups, $options): array
+    {
         $calendars = [];
         $calendars['head'][] = 'subject';
         $calendars['head'][] = 'start date';
@@ -121,25 +195,34 @@ class BuildScheduleController extends Controller
             }
         }
 
-        return $this->download($calendars, 'calendar_of_' . authed()->student_id);
+        return $calendars;
     }
 
-    private function download($calendars, $file_name): StreamedResponse
+    private function download($calendars, $options): StreamedResponse
     {
+        $file_name = 'Calendar_of_' . authed()->student_id . '.';
+        $file_type = $options['file_type'];
         $headers = [
             'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
-            'Content-type'        => 'text/csv',
-            'Content-Disposition' => 'attachment; filename=' . $file_name . '.csv',
+            'Content-type'        => 'text/' . $file_type,
+            'Content-Disposition' => 'attachment; filename=' . $file_name . $file_type,
             'Expires'             => '0',
             'Pragma'              => 'public'
         ];
 
-        $callback = function() use ($calendars)
+        $callback = function() use ($calendars, $file_type)
         {
             $FH = fopen('php://output', 'wb');
-            foreach ($calendars as $row) {
-                fputcsv($FH, $row);
+            if ($file_type === 'csv') {
+                foreach ($calendars as $row) {
+                    fputcsv($FH, $row);
+                }
+            } else {
+                foreach ($calendars as $row) {
+                    fwrite($FH, $row . "\n");
+                }
             }
+
             fclose($FH);
         };
 
