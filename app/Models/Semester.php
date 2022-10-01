@@ -30,4 +30,22 @@ class Semester extends Base
         return $this->hasMany(Date::class, 'semester_id', 'id');
     }
 
+    public function getSemesterNameAttribute(): string
+    {
+        if ($this->semester === 1) {
+            return 'học kỳ 1';
+        }
+
+        if ($this->semester === 2) {
+            return 'học kỳ 2';
+        }
+
+        return 'học kỳ hè';
+    }
+
+    public function getYearRangeAttribute(): string
+    {
+        return $this->start_year . ' - ' . $this->end_year;
+    }
+
 }

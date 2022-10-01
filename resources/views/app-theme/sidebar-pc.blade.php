@@ -53,7 +53,7 @@
         <li>
             <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!} style="pointer-events: none;cursor: default;">
                 <div class="side-menu__icon">
-                    <i data-lucide="clock"></i>
+                    <i data-lucide="refresh-cw"></i>
                 </div>
                 <div class="side-menu__title">
                     Tự động đọc thông báo
@@ -75,10 +75,20 @@
         <li>
             <a {!! getAhrefTagContentPC(route('admin.user.index')) !!}>
                 <div class="side-menu__icon">
-                    <i data-lucide="message-users"></i>
+                    <i data-lucide="users"></i>
                 </div>
                 <div class="side-menu__title">
                     Quản lý người dùng
+                </div>
+            </a>
+        </li>
+        <li>
+            <a {!! getAhrefTagContentPC(route('admin.config.index')) !!}>
+                <div class="side-menu__icon">
+                    <i data-lucide="clock"></i>
+                </div>
+                <div class="side-menu__title">
+                    Cấu hình
                 </div>
             </a>
         </li>

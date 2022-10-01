@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConfigController;
 use App\Http\Middleware\AdminAuthenticate;
 use App\Jobs\SendMailNotification;
 use App\Mail\MailNotification;
@@ -76,6 +77,12 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
             Route::get('/', [UserController::class, 'index'])->name('index');
             Route::put('/toggle_active/{user}', [UserController::class, 'toggleActive'])->name('update');
         });
+        Route::group(['prefix' => 'config', 'as' => 'config.'], static function () {
+            Route::get('/', [ConfigController::class, 'index'])->name('index');
+            Route::post('/create_study_plan', [ConfigController::class, 'createStudyPlan'])->name('create_study_plan');
+            Route::put('/update_period', [ConfigController::class, 'updatePeriod'])->name('update_period');
+            Route::put('/update_first_dash_week', [ConfigController::class, 'updateFirstDashWeek'])->name('update_first_dash_week');
+        });
         Route::group(['prefix' => 'promotions', 'as' => 'promotion.'], static function () {Route::put('/toggle_active/{promotion}', [PromotionController::class, 'toggleActive'])->name('update');
         });
     });
@@ -92,5 +99,18 @@ Route::get('/test', function () {
 
 Route::get('/t', function () {
     $a = Carbon::make('2022/09/23 19:00:00')->format('Ymd\THis');
+    $a = Carbon::make('20220928T235000Z')->toDateTimeString();
+    dd(now());
     dd($a);
+});
+
+Route::get('/test123', function () {
+    $default = [
+        'start_date' => '2022-08-15',
+        'end_date' => '2023-08-20',
+        'semester_1_start_date' => '2022-08-15',
+        'semester_2_start_date' => '2023-01-02',
+        'semester_3_start_date' => '2023-06-19',
+    ];
+    (new \App\Http\Controllers\ConfigController())->createStudyPlan(null, $default);
 });

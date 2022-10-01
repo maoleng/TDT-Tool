@@ -32,11 +32,11 @@ class DatabaseSeeder extends Seeder
 
         Config::query()->create(['key' => 'first_dash_week', 'value' => '1']);
         $default = [
-            'start_date' => '2022-08-15',
-            'end_date' => '2023-08-20',
-            'semester_1_start_date' => '2022-08-15',
-            'semester_2_start_date' => '2023-01-02',
-            'semester_3_start_date' => '2023-06-19',
+            'start_date' => '15-08-2022',
+            'end_date' => '20-08-2023',
+            'semester_1_start_date' => '15-08-2022',
+            'semester_2_start_date' => '02-01-2023',
+            'semester_3_start_date' => '19-06-2023',
         ];
         (new \App\Http\Controllers\ConfigController())->createStudyPlan(null, $default);
 

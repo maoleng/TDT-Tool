@@ -257,6 +257,9 @@ class BuildScheduleController extends Controller
         );
     }
 
+    /**
+     * @throws \JsonException
+     */
     private function getDatesOfSchedule($item, $day_of_week, $group, $room): void
     {
         preg_match('/Week:.+</', $item, $match);
@@ -274,7 +277,11 @@ class BuildScheduleController extends Controller
             }
         }
 
+        $semester_ids_string = Config::query()->where('key', 'current_semester_ids')->first()->value;
+        $semester_ids = json_decode($semester_ids_string, false, 512, JSON_THROW_ON_ERROR);
+
         $date_ids = Date::query()
+            ->whereIn('semester_id', $semester_ids)
             ->whereRaw('WEEKDAY(date) = ' . $day_of_week)
             ->whereIn('week', $new_weeks)
             ->orderBy('week', 'ASC')->get()->pluck('id')->toArray();

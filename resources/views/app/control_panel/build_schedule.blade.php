@@ -50,16 +50,12 @@
             @csrf
             <div class="intro-y box p-5">
                 <div class="flex flex-col sm:flex-row items-center border-b border-slate-200/60 dark:border-darkmode-400">
-                    <h2 class="font-medium text-base mr-auto">Nhập lịch</h2>
-                    <div class="mb-5 form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0">
-                        <label class="form-check-label ml-0" for="show-example-1">Bằng mật khẩu stdtportal</label>
-                        <input disabled id="toggle" class=" show-code form-check-input mr-0 ml-3" type="checkbox">
-                    </div>
+                    <h2 class="mb-5 font-medium text-base mr-auto">Nhập lịch</h2>
                 </div>
                 <div class="mt-5">
                     <div>
-                        <label id="toggle_label_input" for="crud-form-1" class="form-label">Mã nguồn thời khóa biểu tổng quát</label>
-                        <textarea id="toggle_input" type="text" name="source" class="form-control form-control-rounded w-full" placeholder="<!DOCTYPE HTML>...."></textarea>
+                        <label for="crud-form-1" class="form-label">Mã nguồn thời khóa biểu tổng quát</label>
+                        <textarea type="text" name="source" class="form-control form-control-rounded w-full" placeholder="<!DOCTYPE HTML>...."></textarea>
                     </div>
                     <div class="text-right mt-5">
                         <button class="btn btn-primary w-32 mr-2 mb-2">
@@ -165,22 +161,6 @@
 @section('script')
     <script>
         $(document).ready(function () {
-            $("#toggle").on('change', function() {
-                let toggle_input = $("#toggle_input")
-                if($("#toggle").is(':checked')) {
-                    $("#toggle_label_input").text('Mật khẩu stdtportal')
-                    toggle_input.attr('type', 'password')
-                    toggle_input.attr('name', 'tdt_password')
-                    toggle_input.attr('placeholder', 'Nhập mật khẩu của tài khoản stdtportal')
-
-                } else {
-                    $("#toggle_label_input").text('Mã nguồn thời khóa biểu tổng quát')
-                    toggle_input.attr('type', 'text')
-                    toggle_input.attr('name', 'source')
-                    toggle_input.attr('placeholder', '<!DOCTYPE HTML>....')
-                }
-            })
-
             $("#button_submit").on('click', function () {
                 if ($("#toggle-repeat").is(':checked')) {
                     let repeat_time = $("#repeat_queue").val()
