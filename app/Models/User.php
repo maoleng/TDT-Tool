@@ -16,13 +16,11 @@ class User extends Base
 
     protected $fillable = [
         'name', 'email', 'tdt_password', 'avatar', 'role', 'active', 'is_read_notification_today', 'google_id',
-        'is_notify_score', 'notify_notification', 'is_auto_read_notification',
     ];
 
     protected $casts = [
         'active' => 'boolean',
         'is_notify_score' => 'boolean',
-        'is_auto_read_notification' => 'boolean',
         'is_read_notification_today' => 'boolean',
     ];
 

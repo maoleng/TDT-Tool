@@ -23,9 +23,6 @@ return new class extends Migration
             $table->boolean('active')->default(0);
             $table->boolean('is_read_notification_today')->default(0);
             $table->string('google_id',250)->nullable();
-            $table->boolean('is_notify_score')->default(false);
-            $table->integer('notify_notification')->default(null)->nullable();
-            $table->boolean('is_auto_read_notification')->default(false);
             $table->timestamps();
         });
     }
