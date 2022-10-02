@@ -55,16 +55,7 @@
                     </div>
                 </a>
             </li>
-            <li>
-                <a {!! getAhrefTagContentMB(route('control_panel.build_schedule.index')) !!} style="pointer-events: none;cursor: default;">
-                    <div class="menu__icon">
-                        <i data-lucide="refresh-cw"></i>
-                    </div>
-                    <div class="menu__title">
-                        Tự động đọc thông báo
-                    </div>
-                </a>
-            </li>
+
             <li>
                 <a {!! getAhrefTagContentMB(route('control_panel.build_schedule.index')) !!} style="pointer-events: none;cursor: default;">
                     <div class="menu__icon">
@@ -93,7 +84,17 @@
                         <i data-lucide="clock"></i>
                     </div>
                     <div class="menu__title">
-                        Cấu hình
+                        Cấu hình thời gian
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a {!! getAhrefTagContentMB(route('admin.setting.index')) !!}>
+                    <div class="menu__icon">
+                        <i data-lucide="settings"></i>
+                    </div>
+                    <div class="menu__title">
+                        Cài đặt
                     </div>
                 </a>
             </li>

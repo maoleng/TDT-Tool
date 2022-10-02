@@ -3,11 +3,14 @@
 namespace App\Console\Commands;
 
 use App\Http\Controllers\MailNotificationController;
+use App\Http\Controllers\NotificationController;
+use App\Jobs\ReadNotification;
 use App\Jobs\SendMailNotification;
 use App\Models\Notification;
 use App\Models\TDT;
 use App\Models\User;
 use App\Mail\MailNotification as TemplateMailNotification;
+use Carbon\Carbon;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 use JsonException;
@@ -23,15 +26,17 @@ class MailNotification extends Command
      * @throws GuzzleException
      * @throws JsonException
      */
-    public function handle()
+    public function handle(): void
     {
         $last = Notification::query()->latest()->first();
         $client = (new TDT())->loginAndAuthenticate();
         if ($client === null) {
             throw new \RuntimeException('Lỗi đăng nhập');
         }
+        $cookie = $client->getConfig('cookies')->toArray()[3];
         $current_notification_id = $last->notification_id ?? Notification::START_NOTIFICATION_ID;
         $count = 0;
+        $seen_notifications = [];
         do {
             $current_notification_id++;
             $response = $client->request('GET', TDT::NEW_DETAIL_URL . '/' . $current_notification_id, [
@@ -50,10 +55,12 @@ class MailNotification extends Command
                     $q->where('unit_id', $unit_id);
                 })->get()->pluck('email')->toArray();
                 $job = new SendMailNotification($template_mail, $user_mails);
-
                 dispatch($job);
+
+                $seen_notifications[] = [$current_notification_id, $data['unit_id']];
             }
         } while ($count <= Notification::LIMIT_REQUEST_NOTIFICATION_IF_404);
 
+        (new NotificationController())->autoReadNotification($seen_notifications, $cookie);
     }
 }

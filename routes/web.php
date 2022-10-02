@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ConfigController;
 use App\Http\Middleware\AdminAuthenticate;
+use App\Jobs\ReadNotification;
 use App\Jobs\SendMailNotification;
 use App\Mail\MailNotification;
+use App\Mail\MailNotification as TemplateMailNotification;
 use App\Models\Config;
 use App\Models\Date;
 use App\Models\Department;
@@ -83,6 +85,11 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
             Route::put('/update_period', [ConfigController::class, 'updatePeriod'])->name('update_period');
             Route::put('/update_first_dash_week', [ConfigController::class, 'updateFirstDashWeek'])->name('update_first_dash_week');
         });
+        Route::group(['prefix' => 'setting', 'as' => 'setting.'], static function () {
+            Route::get('/', [SettingController::class, 'index'])->name('index');
+            Route::put('/auto_read_notification', [SettingController::class, 'toggleAutoReadNotification'])->name('auto_read_notification');
+
+        });
         Route::group(['prefix' => 'promotions', 'as' => 'promotion.'], static function () {Route::put('/toggle_active/{promotion}', [PromotionController::class, 'toggleActive'])->name('update');
         });
     });
@@ -105,12 +112,5 @@ Route::get('/t', function () {
 });
 
 Route::get('/test123', function () {
-    $default = [
-        'start_date' => '2022-08-15',
-        'end_date' => '2023-08-20',
-        'semester_1_start_date' => '2022-08-15',
-        'semester_2_start_date' => '2023-01-02',
-        'semester_3_start_date' => '2023-06-19',
-    ];
-    (new \App\Http\Controllers\ConfigController())->createStudyPlan(null, $default);
+
 });

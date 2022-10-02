@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
     public function createRootData(): void
     {
         User::query()->insert([
-            'id' => 'master-user-id',
+            'id' => User::MASTER_ID,
             'email' => '521H0504@student.tdtu.edu.vn',
             'name' => 'Bui Huu Loc',
             'role' => 3,
@@ -55,6 +55,11 @@ class DatabaseSeeder extends Seeder
         Setting::query()->create([
             'key' => 'theme',
             'value' => 'light',
+            'user_id' => $user->id,
+        ]);
+        Setting::query()->create([
+            'key' => 'auto_read_notification',
+            'value' => 1,
             'user_id' => $user->id,
         ]);
         Promotion::query()->insert([

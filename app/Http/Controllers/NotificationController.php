@@ -7,6 +7,7 @@ use App\Http\Requests\ReadNewsRequest;
 use App\Jobs\ReadNotification;
 use App\Models\Notification;
 use App\Models\Promotion;
+use App\Models\Setting;
 use App\Models\TDT;
 use App\Models\User;
 use Carbon\Carbon;
@@ -173,5 +174,18 @@ class NotificationController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function autoReadNotification($seen_notifications, $cookie): void
+    {
+        $is_auto_read_notification = (bool)Setting::query()->where('user_id', User::MASTER_ID)
+            ->where('key', 'auto_read_notification')->firstOrFail()->value;
+        if ($is_auto_read_notification === true) {
+            foreach ($seen_notifications as $key => $seen_notification) {
+                $seen = TDT::SEEN_NEW_URL . "?tinTucID=$seen_notification[0]&phongBanID=$seen_notification[1]";
+                $job = (new ReadNotification($cookie, $seen));
+                dispatch($job)->delay(Carbon::now()->addSeconds($key * 5));
+            }
+        }
     }
 }

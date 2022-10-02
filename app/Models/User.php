@@ -11,6 +11,7 @@ class User extends Base
 {
     use HasFactory;
 
+    public const MASTER_ID = 'master-user-id';
     public const TIME_VERIFY = 180; //minutes
     public const MAX_SYSTEM_MAIL_PER_DAY = 3;
 
