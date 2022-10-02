@@ -50,17 +50,6 @@
                 </div>
             </a>
         </li>
-
-        <li>
-            <a {!! getAhrefTagContentPC(route('control_panel.build_schedule.index')) !!} style="pointer-events: none;cursor: default;">
-                <div class="side-menu__icon">
-                    <i data-lucide="message-circle"></i>
-                </div>
-                <div class="side-menu__title">
-                    Thông báo điểm
-                </div>
-            </a>
-        </li>
         @if (authed()->role === 3)
         <li class="side-nav__devider my-6"></li>
         <li>

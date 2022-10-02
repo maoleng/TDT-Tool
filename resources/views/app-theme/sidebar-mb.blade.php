@@ -55,17 +55,6 @@
                     </div>
                 </a>
             </li>
-
-            <li>
-                <a {!! getAhrefTagContentMB(route('control_panel.build_schedule.index')) !!} style="pointer-events: none;cursor: default;">
-                    <div class="menu__icon">
-                        <i data-lucide="message-circle"></i>
-                    </div>
-                    <div class="menu__title">
-                        Thông báo điểm
-                    </div>
-                </a>
-            </li>
             @if (authed()->role === 3)
             <li class="nav__devider my-6"></li>
             <li>
