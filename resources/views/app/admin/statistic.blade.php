@@ -18,23 +18,23 @@
                     </div>
                 </div>
             </div>
-            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <div class="report-box zoom-in">
-                    <div class="box p-5">
-                        <div class="flex">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="credit-card" data-lucide="credit-card" class="lucide lucide-credit-card report-box__icon text-pending"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                            <div class="ml-auto">
-                                <div class="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0">
-                                    <label class="form-check-label ml-0" for="show-example-1">Kích hoạt</label>
-                                    <input id="toggle-repeat" class="show-code form-check-input mr-0 ml-3" type="checkbox">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-3xl font-medium leading-8 mt-6">3.721</div>
-                        <div class="text-base text-slate-500 mt-1">Số lần thông báo điểm</div>
-                    </div>
-                </div>
-            </div>
+{{--            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">--}}
+{{--                <div class="report-box zoom-in">--}}
+{{--                    <div class="box p-5">--}}
+{{--                        <div class="flex">--}}
+{{--                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="credit-card" data-lucide="credit-card" class="lucide lucide-credit-card report-box__icon text-pending"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>--}}
+{{--                            <div class="ml-auto">--}}
+{{--                                <div class="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0">--}}
+{{--                                    <label class="form-check-label ml-0" for="show-example-1">Kích hoạt</label>--}}
+{{--                                    <input id="toggle-repeat" class="show-code form-check-input mr-0 ml-3" type="checkbox">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="text-3xl font-medium leading-8 mt-6">3.721</div>--}}
+{{--                        <div class="text-base text-slate-500 mt-1">Số lần thông báo điểm</div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                 <div class="report-box zoom-in">
                     <div class="box p-5">
@@ -51,22 +51,22 @@
                     </div>
                 </div>
             </div>
-{{--            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">--}}
-{{--                <div class="report-box zoom-in">--}}
-{{--                    <div class="box p-5">--}}
-{{--                        <div class="flex">--}}
-{{--                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="user" data-lucide="user" class="lucide lucide-user report-box__icon text-success"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>--}}
-{{--                            <div class="ml-auto">--}}
-{{--                                <div class="report-box__indicator bg-success tooltip cursor-pointer">--}}
-{{--                                    22% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-up" data-lucide="chevron-up" class="lucide lucide-chevron-up w-4 h-4 ml-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="text-3xl font-medium leading-8 mt-6">152.040</div>--}}
-{{--                        <div class="text-base text-slate-500 mt-1">Unique Visitor</div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                    <div class="box p-5">
+                        <div class="flex">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="calendar" data-lucide="calendar" class="lucide lucide-calendar report-box__icon text-success"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            <div class="ml-auto">
+                                <div class="report-box__indicator bg-success tooltip cursor-pointer">
+                                    22% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-up" data-lucide="chevron-up" class="lucide lucide-chevron-up w-4 h-4 ml-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{$count_created_schedules}}</div>
+                        <div class="text-base text-slate-500 mt-1">Số lần xuất thời khóa biểu</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     @if ($errors->any())
