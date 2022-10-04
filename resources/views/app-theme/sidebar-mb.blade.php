@@ -78,12 +78,12 @@
                 </a>
             </li>
             <li>
-                <a {!! getAhrefTagContentMB(route('admin.setting.index')) !!}>
+                <a {!! getAhrefTagContentMB(route('admin.statistic.index')) !!}>
                     <div class="menu__icon">
-                        <i data-lucide="settings"></i>
+                        <i data-lucide="bar-chart-2"></i>
                     </div>
                     <div class="menu__title">
-                        Cài đặt
+                        Thống kê
                     </div>
                 </a>
             </li>

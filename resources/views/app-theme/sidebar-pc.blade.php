@@ -73,12 +73,12 @@
             </a>
         </li>
         <li>
-            <a {!! getAhrefTagContentPC(route('admin.setting.index')) !!}>
+            <a {!! getAhrefTagContentPC(route('admin.statistic.index')) !!}>
                 <div class="side-menu__icon">
-                    <i data-lucide="settings"></i>
+                    <i data-lucide="bar-chart-2"></i>
                 </div>
                 <div class="side-menu__title">
-                    Cài đặt
+                    Thống kê
                 </div>
             </a>
         </li>

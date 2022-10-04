@@ -84,6 +84,7 @@ class MailNotificationController extends Controller
     }
 
     #[ArrayShape([
+        'notification' => "\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model",
         'created_at' => "string", 'link' => "string", 'files' => "array",
         'department' => "\Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed", 'title' => "string",
         'content' => "mixed", 'unit_id' => "string"
@@ -127,6 +128,7 @@ class MailNotificationController extends Controller
         $content = $this->handleImage($content, $notification);
 
         return [
+            'notification' => $notification,
             'created_at' => $created_at,
             'link' => TDT::NEW_DETAIL_URL . '/' . $current_notification_id,
             'files' => $files ?? [],

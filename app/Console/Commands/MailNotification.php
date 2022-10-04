@@ -39,7 +39,7 @@ class MailNotification extends Command
         $seen_notifications = [];
         do {
             $current_notification_id++;
-            $response = $client->request('GET', TDT::NEW_DETAIL_URL . '/' . $current_notification_id, [
+            $response = $client->request('GET', TDT::NEW_DETAIL_URL.'/'.$current_notification_id, [
                 'allow_redirects' => [
                     'max' => 30,
                 ]
@@ -53,8 +53,8 @@ class MailNotification extends Command
                 $unit_id = $data['unit_id'];
                 $user_mails = User::query()->whereHas('subscribedDepartments', static function ($q) use ($unit_id) {
                     $q->where('unit_id', $unit_id);
-                })->get()->pluck('email')->toArray();
-                $job = new SendMailNotification($template_mail, $user_mails);
+                })->get()->pluck('email', 'id')->toArray();
+                $job = new SendMailNotification($template_mail, $user_mails, $data['notification']);
                 dispatch($job);
 
                 $seen_notifications[] = [$current_notification_id, $data['unit_id']];

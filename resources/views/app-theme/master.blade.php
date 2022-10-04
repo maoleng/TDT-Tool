@@ -20,6 +20,9 @@
     <script src="{{asset('app-theme/js/app.js')}}"></script>
     <script src="{{asset('app-theme/js/jquery-3.6.0.js')}}"></script>
     <script>
+        $("#toggle-auto_read_notification").on('change', function() {
+            $("#form-auto_read_notification").submit()
+        })
         let theme =
         $("#toggle-theme").click(function () {
             let theme = $("#toggle-theme").is(':checked') ? 'dark' : 'light'

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SettingRequest;
+use App\Models\Notification;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -20,10 +21,12 @@ class SettingController extends Controller
     public function index(): ViewReturn
     {
         $settings = Setting::query()->where('user_id', User::MASTER_ID)->get();
+        $count_seen_news = Notification::query()->count();
 
         return view('app.admin.setting', [
             'breadcrumb' => 'Cài đặt cá nhân',
             'settings' => $settings,
+            'count_seen_news' => $count_seen_news,
         ]);
     }
 

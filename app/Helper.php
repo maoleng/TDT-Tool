@@ -5,6 +5,7 @@ use App\Models\Config;
 use App\Models\Session;
 use App\Models\Setting;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 
@@ -77,3 +78,11 @@ if (!function_exists('checkCreatedSchedule')) {
         return !empty(Session::query()->where('user_id', authed()->id)->where('active', true)->first());
     }
 }
+
+if (!function_exists('getSettings')) {
+    function getSettings(): Collection|array
+    {
+        return Setting::query()->where('user_id', User::MASTER_ID)->get();
+    }
+}
+

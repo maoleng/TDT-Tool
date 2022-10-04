@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,17 +17,31 @@ class SendMailNotification implements ShouldQueue
 
     private mixed $template_mail;
     private mixed $mails;
+    private mixed $user_ids;
+    private mixed $notification;
 
-    public function __construct($template_mail, $mails)
+    public function __construct($template_mail, $mails, $notification)
     {
         $this->template_mail = $template_mail;
         $this->mails = $mails;
+        $this->user_ids = array_keys($mails);
+        $this->notification = $notification;
     }
 
     public function handle(): void
     {
-        Mail::to(env('DEFAULT_USERNAME') . '@student.tdtu.edu.vn')
-            ->bcc($this->mails)
-            ->send($this->template_mail);
+        try {
+            Mail::to(env('DEFAULT_USERNAME') . '@student.tdtu.edu.vn')
+                ->bcc($this->mails)
+                ->send($this->template_mail);
+            $status = true;
+        } catch (Exception $e) {
+            $status = false;
+        }
+
+        $this->notification->receivers()->syncWithPivotValues($this->user_ids, [
+            'status' => $status,
+        ]);
+
     }
 }

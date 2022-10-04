@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Notification extends Base
@@ -13,7 +14,7 @@ class Notification extends Base
     public const NOTIFICATION_AT_LEAST_TO_READ = 50;
     public const MAX_NOTIFICATION_PAGE = 70;
     public const LIMIT_REQUEST_NOTIFICATION_IF_404 = 3;
-    public const START_NOTIFICATION_ID = '139313';
+    public const START_NOTIFICATION_ID = '139344';
     public const CRON_NOTIFICATION_TIME = 30; // minutes
 
     protected $fillable = [
@@ -23,5 +24,11 @@ class Notification extends Base
     public function files(): HasMany
     {
         return $this->hasMany(File::class, 'notification_id', 'id');
+    }
+
+    public function receivers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'notification_users', 'notification_id', 'user_id')
+            ->withPivot('status');
     }
 }

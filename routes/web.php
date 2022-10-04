@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\StatisticController;
 use App\Http\Middleware\AdminAuthenticate;
 use App\Jobs\ReadNotification;
 use App\Jobs\SendMailNotification;
@@ -86,9 +87,11 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
             Route::put('/update_first_dash_week', [ConfigController::class, 'updateFirstDashWeek'])->name('update_first_dash_week');
         });
         Route::group(['prefix' => 'setting', 'as' => 'setting.'], static function () {
-            Route::get('/', [SettingController::class, 'index'])->name('index');
             Route::put('/auto_read_notification', [SettingController::class, 'toggleAutoReadNotification'])->name('auto_read_notification');
-
+        });
+        Route::group(['prefix' => 'statistic', 'as' => 'statistic.'], static function () {
+            Route::get('/', [StatisticController::class, 'index'])->name('index');
+            Route::put('/auto_read_notification', [SettingController::class, 'toggleAutoReadNotification'])->name('auto_read_notification');
         });
         Route::group(['prefix' => 'promotions', 'as' => 'promotion.'], static function () {Route::put('/toggle_active/{promotion}', [PromotionController::class, 'toggleActive'])->name('update');
         });
@@ -112,5 +115,11 @@ Route::get('/t', function () {
 });
 
 Route::get('/test123', function () {
-
+    $a = Notification::query()->first();
+    $ids = User::query()->get()->pluck('id')->toArray();
+//    $a->receivers()->syncWithPivotValues($ids, [
+//        'status' => true,
+//        'created_at' => now(),
+//    ]);
+    dd($a->receivers->toArray());
 });
