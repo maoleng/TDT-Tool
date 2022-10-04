@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Notification;
+use App\Models\NotificationUser;
 use Illuminate\Contracts\View\View as ViewReturn;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 
 class StatisticController extends Controller
@@ -17,10 +19,12 @@ class StatisticController extends Controller
     public function index(): ViewReturn
     {
         $count_seen_news = Notification::query()->count();
+        $count_sent_news = NotificationUser::query()->count();
 
         return view('app.admin.statistic', [
             'breadcrumb' => 'Thống kê',
             'count_seen_news' => $count_seen_news,
+            'count_sent_news' => $count_sent_news,
         ]);
     }
 

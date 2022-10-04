@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-3xl font-medium leading-8 mt-6">{{0}}</div>
+                        <div class="text-3xl font-medium leading-8 mt-6">{{$count_sent_news}}</div>
                         <div class="text-base text-slate-500 mt-1">Số thông báo được gửi qua mail</div>
                     </div>
                 </div>
