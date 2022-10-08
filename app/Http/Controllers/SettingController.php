@@ -47,9 +47,9 @@ class SettingController extends Controller
     public function update(SettingRequest $request)
     {
         $data = $request->validated();
-        Setting::query()->where('user_id', $data['user_id'])->update([
-            'key' => $data['key'],
-            'value' => $data['value'],
-        ]);
+        Setting::query()
+            ->where('user_id', $data['user_id'])
+            ->where('key', $data['key'])
+            ->update(['value' => $data['value']]);
     }
 }
