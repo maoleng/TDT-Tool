@@ -31,4 +31,9 @@ class Notification extends Base
         return $this->belongsToMany(User::class, 'notification_users', 'notification_id', 'user_id')
             ->withPivot('status');
     }
+
+    public function getCountReceiversAttribute()
+    {
+        return $this->where('id', $this->id)->withCount('receivers')->first()->receivers_count;
+    }
 }

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class NotificationUser extends Base
 {
@@ -14,8 +14,8 @@ class NotificationUser extends Base
         'notification_id', 'user_id', 'status',
     ];
 
-    public function notifications(): HasMany
+    public function notification(): BelongsTo
     {
-        return $this->hasMany(Notification::class, 'notification_id', 'id');
+        return $this->belongsTo(Notification::class, 'notification_id', 'id');
     }
 }

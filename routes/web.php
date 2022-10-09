@@ -91,7 +91,8 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
         });
         Route::group(['prefix' => 'statistic', 'as' => 'statistic.'], static function () {
             Route::get('/', [StatisticController::class, 'index'])->name('index');
-            Route::put('/auto_read_notification', [SettingController::class, 'toggleAutoReadNotification'])->name('auto_read_notification');
+            Route::get('/mail_sent', [StatisticController::class, 'mailSent'])->name('mail_sent');
+
         });
         Route::group(['prefix' => 'promotions', 'as' => 'promotion.'], static function () {Route::put('/toggle_active/{promotion}', [PromotionController::class, 'toggleActive'])->name('update');
         });
