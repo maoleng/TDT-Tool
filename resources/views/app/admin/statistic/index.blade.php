@@ -1,7 +1,7 @@
 @extends('app-theme.master')
 
 @section('title')
-    Thống kê chung vào hôm nay
+    Thống kê chung vào hôm nay - {{now()->format('d/m/Y')}}
 @endsection
 
 @section('content')

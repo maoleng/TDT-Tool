@@ -30,7 +30,7 @@
                             <div class="report-box zoom-in">
                                 <div class="box p-5">
                                     <div id="count_mail_this_month" class="text-3xl font-medium leading-8 mt-6"></div>
-                                    <div class="text-base text-slate-500 mt-1">Số mail đã gửi trong tháng 10</div>
+                                    <div class="text-base text-slate-500 mt-1">Số mail đã gửi trong tháng {{now()->month}}</div>
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                             <div class="report-box zoom-in">
                                 <div class="box p-5">
                                     <div id="count_mail_this_year" class="text-3xl font-medium leading-8 mt-6"></div>
-                                    <div class="text-base text-slate-500 mt-1">Số mail đã gửi trong năm 2022</div>
+                                    <div class="text-base text-slate-500 mt-1">Số mail đã gửi trong năm {{now()->year}}</div>
                                 </div>
                             </div>
                         </div>
@@ -152,10 +152,12 @@ console.log(data)
 
     function mailByDays(data, background_color, border_color)
     {
+        let days = [2, 3, 4, 5, 6, 7].map(function (day) {return 'Thứ ' + day})
+        days.push('Chủ nhật')
         const data_chart_mails_by_day = {
-            labels: [2, 3, 4, 5, 6, 7, 8].map(function (day) {return 'Thứ ' + day}),
+            labels: days,
             datasets: [{
-                label: 'Tổng số tin nhắn đã gửi theo ngày trong tuần',
+                label: 'Tổng số mail đã gửi theo ngày trong tuần',
                 data: data[1][1],
                 backgroundColor: background_color,
                 borderColor: border_color,
