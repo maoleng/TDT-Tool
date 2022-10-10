@@ -24,8 +24,9 @@ class UserController extends Controller
             ->withCount(['promotions' => function ($q) {
                 $q->whereNull('status');
             }])
-            ->get();
-
+            ->orderBy('created_at', 'DESC')
+            ->paginate(6);
+//        dd($users);
         return view('app.admin.user.index', [
             'breadcrumb' => 'Người dùng',
             'users' => $users,

@@ -84,7 +84,11 @@
             </tbody>
         </table>
 
-        @foreach($users as $user)
+        <!-- END: Pagination -->
+        {{ $users->links('vendor.pagination.main') }}
+
+
+    @foreach($users as $user)
         <div id="promotion-of-{{$user->studentId}}" class="modal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
