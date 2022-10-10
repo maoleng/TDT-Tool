@@ -84,7 +84,6 @@
             </tbody>
         </table>
 
-        <!-- END: Pagination -->
         {{ $users->links('vendor.pagination.main') }}
 
 

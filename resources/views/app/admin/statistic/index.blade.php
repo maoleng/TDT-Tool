@@ -46,8 +46,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                <div class="report-box zoom-in">
+            <div id="statistic-schedule" class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div data-tw-toggle="modal" data-tw-target="#modal-statistic-schedule" class="report-box zoom-in">
                     <div class="box p-5">
                         <div class="flex">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="calendar" data-lucide="calendar" class="lucide lucide-calendar report-box__icon text-success"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
@@ -81,6 +81,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 
     @include('app.admin.statistic.chart_mail')
+    @include('app.admin.statistic.chart_schedule')
 @endsection
 {{--const data = {--}}
 {{--labels: ["Html", "Vuejs", "Laravel"],--}}

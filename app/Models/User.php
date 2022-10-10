@@ -36,6 +36,11 @@ class User extends Base
             ->where('active', true)->limit(1);
     }
 
+    public function statisticSessions(): HasMany
+    {
+        return $this->hasMany(Session::class, 'user_id', 'id');
+    }
+
     public function promotions(): HasMany
     {
         return $this->hasMany(Promotion::class, 'user_id', 'id');
