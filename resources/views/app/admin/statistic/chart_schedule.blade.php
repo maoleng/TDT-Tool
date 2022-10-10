@@ -74,7 +74,7 @@
                 success:function(data) {
                     // Dùng chung
                     data = Object.entries(data)
-                    const background_color = [
+                    const background_color_schedule = [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(255, 159, 64, 0.2)',
                         'rgba(255, 205, 86, 0.2)',
@@ -88,7 +88,7 @@
                         'rgba(75, 192, 192, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                     ]
-                    const border_color = [
+                    const border_color_schedule = [
                         'rgb(255, 99, 132)',
                         'rgb(255, 159, 64)',
                         'rgb(255, 205, 86)',
@@ -110,14 +110,14 @@
                     $('#count_export_all').text(data[4][1])
 
                     // Biểu đồ thống kê
-                    scheduleByMonths(data, background_color, border_color)
-                    usersExportSchedule(data, background_color, border_color)
+                    scheduleByMonths(data, background_color_schedule, border_color_schedule)
+                    usersExportSchedule(data, background_color_schedule, border_color_schedule)
                 }
             });
         })
     })
 
-    function scheduleByMonths(data, background_color, border_color)
+    function scheduleByMonths(data, background_color_schedule, border_color_schedule)
     {
         let schedule_by_months = Object.entries(data[0][1])
         let data_sets = []
@@ -125,8 +125,8 @@
             data_sets.push({
                 label: 'Tổng số lần xuất thời khóa biểu theo tháng trong năm ' + item[0],
                 data: item[1],
-                backgroundColor: background_color,
-                borderColor: border_color,
+                backgroundColor: background_color_schedule,
+                borderColor: border_color_schedule,
                 borderWidth: 1,
             })
         })
@@ -137,32 +137,32 @@
         const config_data_chart_schedule_by_months = {
             type: 'bar',
             data: data_chart_schedule_by_months,
-            options: getOptions(Math.max(...schedule_by_months[0][1])),
+            options: getOptionSchedules(Math.max(...schedule_by_months[0][1])),
         };
         new Chart($('#chart_schedules_by_month'), config_data_chart_schedule_by_months);
     }
 
-    function usersExportSchedule(data, background_color, border_color)
+    function usersExportSchedule(data, background_color_schedule, border_color_schedule)
     {
         const data_user_export_schedule = {
             labels: data[5][1][0],
             datasets: [{
                 label: 'Top ' + data[5][1][1].length + ' người dùng xuất nhiều thời khóa biểu nhất',
                 data: data[5][1][1],
-                backgroundColor: background_color,
-                borderColor: border_color,
+                backgroundColor: background_color_schedule,
+                borderColor: border_color_schedule,
                 borderWidth: 1
             }]
         };
         const config_user_export_schedule = {
             type: 'bar',
             data: data_user_export_schedule,
-            options: getOptions(Math.max(...data[5][1][1])),
+            options: getOptionSchedules(Math.max(...data[5][1][1])),
         };
         new Chart($('#chart_users_export_schedule'), config_user_export_schedule);
     }
 
-    function getOptions(max_x_row)
+    function getOptionSchedules(max_x_row)
     {
         return {
             maintainAspectRatio: false,
