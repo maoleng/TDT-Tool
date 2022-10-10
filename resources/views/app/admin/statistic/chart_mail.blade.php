@@ -177,7 +177,7 @@ console.log(data)
         const data_chart_users_receive_mail = {
             labels: data[6][1][0],
             datasets: [{
-                label: 'Top 10 người dùng nhận nhiều mail nhất',
+                label: 'Top ' + data[6][1][1].length + ' người dùng nhận nhiều mail nhất',
                 data: data[6][1][1],
                 backgroundColor: background_color,
                 borderColor: border_color,
