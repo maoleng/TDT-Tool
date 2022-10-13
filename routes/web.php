@@ -117,11 +117,6 @@ Route::get('/t', function () {
 });
 
 Route::get('/test123', function () {
-    $a = Notification::query()->first();
-    $ids = User::query()->get()->pluck('id')->toArray();
-//    $a->receivers()->syncWithPivotValues($ids, [
-//        'status' => true,
-//        'created_at' => now(),
-//    ]);
-    dd($a->receivers->toArray());
+    $a = User::first();
+    activity()->causedBy($a)->log('aaa');
 });

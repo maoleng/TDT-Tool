@@ -53,7 +53,7 @@ class MailNotificationController extends Controller
     public function chooseDepartment(ChooseDepartmentRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $user = User::query()->find(authed()->id);
+        $user = userModel();
 
         if (isset($data['choose_fast'])) {
             if ($data['choose_fast'] === 'all') {

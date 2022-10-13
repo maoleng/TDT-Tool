@@ -5,7 +5,9 @@ use App\Models\Config;
 use App\Models\Session;
 use App\Models\Setting;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 
@@ -34,6 +36,13 @@ if (!function_exists('authed')) {
             return null;
         }
         return c(JWT::class)->match($token);
+    }
+}
+
+if (!function_exists('userModel')) {
+    function userModel(): Model|Collection|Builder|array|null
+    {
+        return User::query()->find(authed()->id) ?? User::query()->find(User::MASTER_ID);
     }
 }
 

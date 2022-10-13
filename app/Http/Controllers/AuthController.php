@@ -45,6 +45,8 @@ class AuthController extends Controller
         $device = (new DeviceController())->createDevice($user, session()->get('device_id'));
         session()->put('token', $device->token);
 
+        activity('login')->causedBy($user)->log($user->name . ' đã đăng nhập vào hệ thống');
+
         return redirect()->route('index');
 
     }
@@ -55,6 +57,8 @@ class AuthController extends Controller
         session()->flush();
         session()->save();
 
-        return redirect()->route('logout');
+        activity('logout')->causedBy(userModel())->log($user->name . ' đã đăng xuất khỏi hệ thống');
+
+        return redirect()->route('login');
     }
 }

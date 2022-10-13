@@ -43,5 +43,9 @@ class SendMailNotification implements ShouldQueue
             'status' => $status,
         ]);
 
+        activity('send_mail_notification')->causedBy(userModel())
+            ->performedOn($this->notification)
+            ->log('Đã gửi mail thông báo mới cho ' . count($this->mails) . ' bạn');
+
     }
 }

@@ -57,6 +57,10 @@ class MailNotification extends Command
                 $job = new SendMailNotification($template_mail, $user_mails, $data['notification']);
                 dispatch($job);
 
+                activity('new_notification')->causedBy(userModel())
+                    ->performedOn($data['notification'])
+                    ->log('Có thông báo mới: ' . $data['notification']->name);
+
                 $seen_notifications[] = [$current_notification_id, $data['unit_id']];
             }
         } while ($count <= Notification::LIMIT_REQUEST_NOTIFICATION_IF_404);

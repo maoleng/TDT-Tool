@@ -40,6 +40,7 @@ class BuildScheduleController extends Controller
 
     public function store(StoreScheduleRequest $request): RedirectResponse
     {
+        $user = userModel();
         $data = $request->validated();
         if (isset($data['source'])) {
             $semester_id = Date::query()->whereDate('date', now())->first()->semester_id;
@@ -47,7 +48,7 @@ class BuildScheduleController extends Controller
             try {
                 SessionModel::query()->where('user_id', authed()->id)->update(['active' => false]);
                 $session = SessionModel::query()->create([
-                    'user_id' => authed()->id,
+                    'user_id' => $user->id,
                     'raw_html' => $data['source'],
                 ]);
                 $items = $this->pluckItems($data['source']);
@@ -58,6 +59,11 @@ class BuildScheduleController extends Controller
                     $this->getDatesOfSchedule($item, $event_data['day'], $group, $event_data['room']);
                 }
                 DB::commit();
+
+                activity('import_schedule')
+                    ->causedBy($user)
+                    ->performedOn($session)
+                    ->log($user->name . ' đã nhập thời khóa biểu');
             } catch (Exception $e) {
                 DB::rollBack();
                 Session::flash('message', $e->getMessage());
@@ -74,18 +80,24 @@ class BuildScheduleController extends Controller
 
     public function downloadSchedule(DownloadScheduleRequest $request): StreamedResponse
     {
+        $user = userModel();
         $options = $request->validated();
-        $groups = User::query()->where('id', authed()->id)
+        $session = User::query()->where('id', authed()->id)
             ->with('sessions.groups.subject')
             ->with('sessions.groups.schedules.date')
             ->with('sessions.groups.periods')
-            ->first()->sessions[0]->groups;
+            ->first()->sessions[0];
 
         if ($options['file_type'] === 'csv') {
-            $calendars = $this->getCalendarCSV($groups, $options);
+            $calendars = $this->getCalendarCSV($session->groups, $options);
         } else {
-            $calendars = $this->getCalendarICS($groups, $options);
+            $calendars = $this->getCalendarICS($session->groups, $options);
         }
+
+        activity('export_schedule')
+            ->causedBy($user)
+            ->performedOn($session)
+            ->log($user->name . ' đã xuất thời khóa biểu');
 
         return $this->download($calendars, $options);
     }
