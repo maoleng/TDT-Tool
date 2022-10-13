@@ -53,11 +53,13 @@ class AuthController extends Controller
 
     public function logout(): \Illuminate\Http\RedirectResponse
     {
+        $user = userModel();
+
         session()->forget('token');
         session()->flush();
         session()->save();
 
-        activity('logout')->causedBy(userModel())->log($user->name . ' đã đăng xuất khỏi hệ thống');
+        activity('logout')->causedBy($user)->log($user->name . ' đã đăng xuất khỏi hệ thống');
 
         return redirect()->route('login');
     }
