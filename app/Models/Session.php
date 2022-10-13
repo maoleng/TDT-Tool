@@ -11,7 +11,7 @@ class Session extends Base
     use HasFactory;
 
     protected $fillable = [
-        'active', 'user_id'
+        'active', 'raw_html', 'user_id'
     ];
 
     protected $casts = [

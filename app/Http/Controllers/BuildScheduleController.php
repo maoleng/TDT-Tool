@@ -46,7 +46,10 @@ class BuildScheduleController extends Controller
             DB::beginTransaction();
             try {
                 SessionModel::query()->where('user_id', authed()->id)->update(['active' => false]);
-                $session = SessionModel::query()->create(['user_id' => authed()->id]);
+                $session = SessionModel::query()->create([
+                    'user_id' => authed()->id,
+                    'raw_html' => $data['source'],
+                ]);
                 $items = $this->pluckItems($data['source']);
                 foreach ($items as $item) {
                     $event_data = $this->getEventData($item);
