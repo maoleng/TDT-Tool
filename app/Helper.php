@@ -42,7 +42,9 @@ if (!function_exists('authed')) {
 if (!function_exists('userModel')) {
     function userModel(): Model|Collection|Builder|array|null
     {
-        return User::query()->find(authed()->id) ?? User::query()->find(User::MASTER_ID);
+        $user_id = authed()->id ?? User::MASTER_ID;
+
+        return User::query()->find($user_id);
     }
 }
 
