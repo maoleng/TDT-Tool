@@ -1,41 +1,22 @@
 <?php
 
-use App\Http\Controllers\ConfigController;
-use App\Http\Controllers\StatisticController;
-use App\Http\Middleware\AdminAuthenticate;
-use App\Jobs\ReadNotification;
-use App\Jobs\SendMailNotification;
-use App\Mail\MailNotification;
-use App\Mail\MailNotification as TemplateMailNotification;
-use App\Models\Config;
-use App\Models\Date;
-use App\Models\Department;
-use App\Models\Group;
-use App\Models\Notification;
-use App\Models\Period;
-use App\Models\Schedule;
-use App\Models\Subject;
-use App\Models\TDT;
-use App\Models\User;
-use App\Models\Session as SessionModel;
-use Carbon\Carbon;
-use Carbon\CarbonPeriod;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
-use Spatie\Crypto\Rsa\KeyPair;
-
+use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuildScheduleController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailNotificationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\StatisticController;
+use App\Http\Middleware\AdminAuthenticate;
 use App\Http\Middleware\AuthLogin;
 use App\Http\Middleware\IfAlreadyLogin;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\Crypto\Rsa\PrivateKey;
 use Spatie\Crypto\Rsa\PublicKey;
 
@@ -95,6 +76,9 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
             Route::get('/schedule_exported', [StatisticController::class, 'scheduleExported'])->name('schedule_exported');
 
         });
+        Route::group(['prefix' => 'activity_log', 'as' => 'activity_log.'], static function () {
+            Route::get('/', [ActivityLogController::class, 'index'])->name('index');
+        });
         Route::group(['prefix' => 'promotions', 'as' => 'promotion.'], static function () {Route::put('/toggle_active/{promotion}', [PromotionController::class, 'toggleActive'])->name('update');
         });
     });
@@ -117,6 +101,6 @@ Route::get('/t', function () {
 });
 
 Route::get('/test123', function () {
-    $a = User::first();
-    activity()->causedBy($a)->log('aaa');
+    $a = Activity::query()->where('log_name', 'login')->get();
+    dd($a);
 });

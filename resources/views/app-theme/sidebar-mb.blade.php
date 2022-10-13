@@ -87,6 +87,16 @@
                     </div>
                 </a>
             </li>
+            <li>
+                <a {!! getAhrefTagContentMB(route('admin.activity_log.index')) !!}>
+                    <div class="menu__icon">
+                        <i data-lucide="activity"></i>
+                    </div>
+                    <div class="menu__title">
+                        Lịch sử hành động
+                    </div>
+                </a>
+            </li>
             @endif
         </ul>
     </div>

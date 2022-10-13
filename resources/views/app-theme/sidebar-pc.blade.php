@@ -82,6 +82,16 @@
                 </div>
             </a>
         </li>
+        <li>
+            <a {!! getAhrefTagContentPC(route('admin.activity_log.index')) !!}>
+                <div class="side-menu__icon">
+                    <i data-lucide="activity"></i>
+                </div>
+                <div class="side-menu__title">
+                    Lịch sử hành động
+                </div>
+            </a>
+        </li>
         @endif
     </ul>
 </nav>
