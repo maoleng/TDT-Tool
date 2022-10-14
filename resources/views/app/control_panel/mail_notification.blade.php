@@ -4,6 +4,24 @@
     Nhận thông báo qua mail
 @endsection
 
+@section('help_modal')
+    <div class="p-5 text-center">
+        <i data-lucide="check-circle" class="w-16 h-16 text-success mx-auto mt-3"></i>
+        <div class="text-3xl mt-5">Hướng dẫn dùng chức năng nhận thông báo qua mail</div>
+    </div>
+    <div class="px-5 pb-8">
+        <div class="text-xl text-slate-500 mt-2">
+            - Chọn Phòng/Ban bạn muốn theo dõi thông báo
+            <br>
+            - Khi nào trên web của trường (stdportal.tdtu.edu.vn) <b>có thông báo mới</b> thì nội dung thông báo đó sẽ được <b>gửi qua mail bạn</b>
+        </div>
+    </div>
+
+    <div class="p-5 text-center">
+        <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24">Ok</button>
+    </div>
+@endsection
+
 @section('content')
     <div class="intro-y col-span-12">
         <div class="intro-y box p-5">

@@ -4,47 +4,95 @@
     Xếp lịch học vào Google Calendar
 @endsection
 
+@section('help_modal')
+    <div class="p-5 text-center">
+        <i data-lucide="check-circle" class="w-16 h-16 text-success mx-auto mt-3"></i>
+        <div class="text-3xl mt-5">Hướng dẫn xếp lịch học vào các trình quản lý lịch</div>
+    </div>
+    <div class="px-5 pb-8">
+        <div class="text-2xl mt-5">Hướng dẫn nhanh:</div>
+        <div class="text-xl text-slate-500 mt-2">
+            Vào trang thời khóa biểu tổng quát, nhấn Ctrl + U, copy và paste vào phần <b>Nhập lịch</b>
+            <br>
+            <strong>Để bảo mật hơn</strong> thì các bạn nên <b>xóa thẻ form</b> nằm ngay dưới thẻ body
+        </div>
+    </div>
+    <div class="px-5 pb-8">
+        <div class="text-2xl mt-5">Hướng dẫn chi tiết: (nhân đôi tab để làm theo cho dễ)</div>
+        <div class="intro-y col-span-12">
+            <div class="grid grid-cols-12 gap-6 mt-5">
+                <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                    <div class="text-xl text-slate-500 mt-2">
+                        1. Vào thời khóa biểu <img class="w-52 mt-2.5" src="{{asset('img/help/schedule.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="col-span-12 sm:col-span-6 xl:col-span-8 intro-y">
+                    <div class="text-xl text-slate-500 mt-2">
+                        2. Chọn <b>học kì hiện tại</b> và ấn vào <b>Xem thời khóa biểu tổng quát</b> <img class="mt-2.5" src="{{asset('img/help/schedule1.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">
+                    <div class="text-xl text-slate-500 mt-2">
+                        3. Nhấn tổ hợp phím <b>Ctrl + U</b> hoặc nhấn chuột phải và chọn <b>View Page Source</b> <img class="mt-2.5" src="{{asset('img/help/schedule2.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">
+                    <div class="text-xl text-slate-500 mt-2">
+                        4. Copy toàn bộ nội dung này bằng tổ hợp phím <b>Ctrl + A</b> và <b>Ctrl + C</b> <img class="mt-2.5" src="{{asset('img/help/schedule3.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">
+                    <div class="text-xl text-slate-500 mt-2">
+                        5. Dán nội dung vừa copy vào đây <img class="mt-2.5" src="{{asset('img/help/schedule4.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">
+                    <div class="text-xl text-slate-500 mt-2">
+                        6. (Có thể bỏ qua bước này) Để bảo mật hơn bạn vui lòng xóa token bằng cách
+                        <ul>
+                            <li>- Copy dòng này: </li>
+                            <li>
+                                <b>{{'<form name="form1" method="post" action="tkb2.aspx?Token='}}</b></li>
+                            <li>- Ấn tổ hợp phím <b>Ctrl + F</b> và <b>Ctrl + V</b></li>
+                            <li>- Xóa dòng đó đi</li>
+                        </ul>
+                        <img class="mt-2.5" src="{{asset('img/help/schedule5.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                    <div class="text-xl text-slate-500 mt-2">
+                        7. Ấn nút <b>Nhập lịch</b> và nút <b>Xuất lịch</b>
+                        <img class="mt-2.5" src="{{asset('img/help/schedule6.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                    <div class="text-xl text-slate-500 mt-2">
+                        8. Vào <a href="https://calendar.google.com/">calendar.google.com</a>, chọn <b>Cài đặt</b>
+                        <img class="mt-2.5" src="{{asset('img/help/schedule7.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="col-span-12 sm:col-span-6 xl:col-span-4 intro-y">
+                    <div class="text-xl text-slate-500 mt-2">
+                        9. Chọn <b>Nhập và xuất</b>
+                        <img class="mt-2.5" src="{{asset('img/help/schedule8.png')}}" alt="">
+                    </div>
+                </div>
+                <div class="col-span-12 sm:col-span-6 xl:col-span-12 intro-y">
+                    <div class="text-xl text-slate-500 mt-2">
+                        10. Nhập lịch vào trình quản lí lịch <b>theo như hình</b>
+                        <img class="mt-2.5" src="{{asset('img/help/schedule9.png')}}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-5 text-center">
+            <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24">Ok</button>
+        </div>
+    </div>
+@endsection
+
 @section('content')
-{{--    <div class="intro-y col-span-12">--}}
-{{--        <div class="intro-y col-span-12">--}}
-{{--            <div class="grid grid-cols-12 gap-6 mt-5">--}}
-{{--                <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">--}}
-{{--                    <div class="report-box zoom-in">--}}
-{{--                        <div class="box p-5">--}}
-{{--                            <div class="flex">--}}
-{{--                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="shopping-cart" data-lucide="shopping-cart" class="lucide lucide-shopping-cart report-box__icon text-primary"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path></svg>--}}
-{{--                                <div class="ml-auto">--}}
-{{--                                    <div class="report-box__indicator bg-success tooltip cursor-pointer">--}}
-{{--                                        33% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-up" data-lucide="chevron-up" class="lucide lucide-chevron-up w-4 h-4 ml-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="text-3xl font-medium leading-8 mt-6">Học kì</div>--}}
-{{--                            <div class="text-base text-slate-500 mt-1">1</div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-{{--                <div class="col-span-12 sm:col-span-6 xl:col-span-6 intro-y">--}}
-{{--                    <div class="report-box zoom-in">--}}
-{{--                        <div class="box p-5">--}}
-{{--                            <div class="flex">--}}
-{{--                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="shopping-cart" data-lucide="shopping-cart" class="lucide lucide-shopping-cart report-box__icon text-primary"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path></svg>--}}
-{{--                                <div class="ml-auto">--}}
-{{--                                    <div class="report-box__indicator bg-success tooltip cursor-pointer">--}}
-{{--                                        33% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-up" data-lucide="chevron-up" class="lucide lucide-chevron-up w-4 h-4 ml-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="text-3xl font-medium leading-8 mt-6">Năm học</div>--}}
-{{--                            <div class="text-base text-slate-500 mt-1">2022-2023</div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--        </div>--}}
-{{--    </div>--}}
     <form action="{{route('control_panel.build_schedule.store')}}" method="post" class="intro-y col-span-12 lg:col-span-6">
         <div class="intro-y col-span-12">
             @csrf

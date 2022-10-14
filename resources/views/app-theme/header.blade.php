@@ -8,6 +8,22 @@
     </nav>
 
 
+    <div class="intro-x dropdown mr-auto sm:mr-6">
+        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#help">
+            <i data-lucide="help-circle" class="w-10 h-10 mr-2"></i>
+        </a>
+    </div>
+
+    <div id="help" class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    @yield('help_modal')
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="intro-x relative mr-3 sm:mr-6">
         <div class="search hidden sm:block">
             <input type="text" class="search__input form-control border-transparent" placeholder="Không tìm kiếm được đâu...">
