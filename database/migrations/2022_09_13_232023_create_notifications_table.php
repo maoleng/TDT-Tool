@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('notification_id', 10);
             $table->text('title');
+            $table->longText('content')->nullable();
             $table->uuid('department_id');
             $table->foreign('department_id')->references('id')->on('departments');
             $table->datetime('created_at');

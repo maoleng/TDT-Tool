@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -14,11 +16,11 @@ class Notification extends Base
     public const NOTIFICATION_AT_LEAST_TO_READ = 50;
     public const MAX_NOTIFICATION_PAGE = 70;
     public const LIMIT_REQUEST_NOTIFICATION_IF_404 = 3;
-    public const START_NOTIFICATION_ID = '139344';
+    public const START_NOTIFICATION_ID = '139487';
     public const CRON_NOTIFICATION_TIME = 30; // minutes
 
     protected $fillable = [
-        'notification_id', 'title', 'department_id', 'created_at',
+        'notification_id', 'title', 'content', 'department_id', 'created_at',
     ];
 
     public function files(): HasMany
@@ -35,5 +37,41 @@ class Notification extends Base
     public function getCountReceiversAttribute()
     {
         return $this->where('id', $this->id)->withCount('receivers')->first()->receivers_count;
+    }
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
+
+    public function getShortTitleAttribute(): string
+    {
+        if (strlen($this->title) > 40) {
+            return substr($this->title, 3, 40).'...';
+        }
+
+        return ' ok';
+    }
+
+    public function getLinkContentAttribute(): string
+    {
+        return 'Xem ở '.substr(TDT::NEW_DETAIL_URL.'/'.$this->notification_id, 8);
+    }
+
+    public function getLinkAttribute(): string
+    {
+        return TDT::NEW_DETAIL_URL.'/'.$this->notification_id;
+    }
+
+    public function getCreatedDiffAttribute(): string
+    {
+        Carbon::setLocale('vi');
+
+        return Carbon::make($this->created_at)->diffForHumans();
+    }
+
+    public function getCreatedAtAttribute($date): string
+    {
+        return Carbon::make($date)->format('d-m-Y H:i:s');
     }
 }

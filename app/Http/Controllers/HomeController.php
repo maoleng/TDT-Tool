@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
@@ -13,10 +14,15 @@ class HomeController extends Controller
         View::share('route', 'index');
     }
 
-    public function index()
+    public function index(): \Illuminate\Contracts\View\View
     {
+        $notifications = Notification::query()->with('department')
+            ->orderBy('created_at', 'DESC')
+            ->get()->pluck('short_title');
+
         return view('app.index', [
-            'breadcrumb' => 'Trang chủ'
+            'breadcrumb' => 'Trang chủ',
+            'notifications' => $notifications,
         ]);
     }
 }

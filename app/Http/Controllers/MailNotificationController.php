@@ -121,6 +121,7 @@ class MailNotificationController extends Controller
         $notification = Notification::query()->create([
             'notification_id' => $current_notification_id,
             'title' => $title,
+            'content' => $content,
             'department_id' => $department->id,
             'created_at' => now()->toDateTimeString(),
         ]);
