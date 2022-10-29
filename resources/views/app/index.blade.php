@@ -20,7 +20,7 @@
                 <tr class="intro-x">
                     <td class="w-2">
                         <div class="flex justify-center items-center">
-                            <a href="{{$notification->link}}" class="flex font-medium whitespace-nowrap text-lg tooltip" title="{{$notification->link_content}}">
+                            <a href="{{$notification->link}}" target="_blank" class="flex font-medium whitespace-nowrap text-lg tooltip" title="{{$notification->link_content}}">
                                 {{$notification->notification_id}}
                             </a>
                         </div>

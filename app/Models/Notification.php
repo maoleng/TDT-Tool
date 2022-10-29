@@ -48,7 +48,6 @@ class Notification extends Base
     public function getShortTitleAttribute(): string
     {
         return strlen($this->title) > 50 ? mb_substr($this->title, 0, 40)."..." : $this->title;
-
     }
 
     public function getLinkContentAttribute(): string
