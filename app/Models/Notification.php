@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Notification extends Base
 {
@@ -46,11 +47,8 @@ class Notification extends Base
 
     public function getShortTitleAttribute(): string
     {
-        if (strlen($this->title) > 40) {
-            return substr($this->title, 3, 40).'...';
-        }
+        return strlen($this->title) > 50 ? mb_substr($this->title, 0, 40)."..." : $this->title;
 
-        return ' ok';
     }
 
     public function getLinkContentAttribute(): string

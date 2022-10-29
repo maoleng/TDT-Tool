@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         $notifications = Notification::query()->with('department')
             ->orderBy('created_at', 'DESC')
-            ->get()->pluck('short_title');
+            ->paginate(7);
 
         return view('app.index', [
             'breadcrumb' => 'Trang chủ',

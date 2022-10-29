@@ -46,7 +46,7 @@
             </tbody>
         </table>
 
-{{--    {{ $notifications->links('vendor.pagination.main') }}--}}
+    {{ $notifications->links('vendor.pagination.main') }}
 
 @endsection
 
