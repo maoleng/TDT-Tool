@@ -24,16 +24,7 @@
         </div>
     </div>
 
-    <div class="intro-x relative mr-3 sm:mr-6">
-        <div class="search hidden sm:block">
-            <input type="text" class="search__input form-control border-transparent" placeholder="Không tìm kiếm được đâu...">
-            <i data-lucide="search" class="search__icon dark:text-slate-500"></i>
-        </div>
-        <a class="notification sm:hidden" href="">
-            <i data-lucide="search" class="notification__icon dark:text-slate-500"></i>
-        </a>
-    </div>
-
+    @yield('header')
 
     <div class="intro-x dropdown mr-auto sm:mr-6">
     </div>

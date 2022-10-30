@@ -28,24 +28,13 @@ class MailNotificationController extends Controller
 
     public function mailNotification(): ViewReturn
     {
-        $departments = Department::query()->get();
         $subscribed_departments = Department::query()->whereHas('subscribers', static function ($q) {
             $q->where('user_id', authed()->id);
         })->get()->pluck('id')->toArray();
-        $data = [];
-        foreach ($departments as $department) {
-            if ($department->type === Department::FACULTY) {
-                $data[Department::FACULTY][] = $department;
-            } elseif ($department->type === Department::POPULAR) {
-                $data[Department::POPULAR][] = $department;
-            } else {
-                $data[Department::OTHER][] = $department;
-            }
-        }
 
         return view('app.control_panel.mail_notification', [
             'breadcrumb' => 'Nhận',
-            'departments' => $data,
+            'departments' => (new Department)->getDepartmentByType(),
             'subscribed_departments' => $subscribed_departments,
         ]);
     }
@@ -190,5 +179,4 @@ class MailNotificationController extends Controller
 
         return null;
     }
-
 }

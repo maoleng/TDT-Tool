@@ -93,4 +93,21 @@ class Department extends Base
             default => 'null',
         };
     }
+
+    public function getDepartmentByType(): array
+    {
+        $departments = self::query()->get();
+        $data = [];
+        foreach ($departments as $department) {
+            if ($department->type === self::FACULTY) {
+                $data[self::FACULTY][] = $department;
+            } elseif ($department->type === self::POPULAR) {
+                $data[self::POPULAR][] = $department;
+            } else {
+                $data[self::OTHER][] = $department;
+            }
+        }
+
+        return $data;
+    }
 }
