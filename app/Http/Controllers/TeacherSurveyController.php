@@ -119,7 +119,7 @@ class TeacherSurveyController extends Controller
 
         activity('survey_teacher')
             ->causedBy($user)
-            ->log($user->name . ' đã xuất thời khóa biểu');
+            ->log($user->name . ' đã đánh giá giảng viên');
         Session::flash('success', [
             'title' => 'Thành công',
             'content' => 'Đánh giá thành công, bạn có thể đóng cửa sổ',
