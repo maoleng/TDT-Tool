@@ -28,7 +28,7 @@ class TeacherSurveyController extends Controller
     {
         $data = $request->validated();
         $user = userModel();
-        $student_card_id = $user->student_id;
+        $student_card_id = strtoupper($user->student_id);
         $arr_level = str_split($data['level']);
         $rand_start_level = (int) $arr_level[0];
         $rand_end_level = (int) $arr_level[1];
@@ -58,7 +58,6 @@ class TeacherSurveyController extends Controller
             $view_state_generator = substr($view_state_generator_match[0], 33, -1);
             preg_match_all("/$student_card_id/", $all_survey, $student_card_id_match);
             $count = count($student_card_id_match[0]);
-
             for ($i = 0; $i <= $count; $i++) {
                 $each_survey = $client->request('POST', 'https://teaching-quality-survey.tdtu.edu.vn/choosesurvey.aspx?Token='.$token, [
                     'form_params' => [
