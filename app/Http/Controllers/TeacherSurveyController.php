@@ -27,7 +27,8 @@ class TeacherSurveyController extends Controller
     public function survey(TeacherSurveyRequest $request)
     {
         $data = $request->validated();
-        $student_card_id = authed()->student_id;
+        $user = userModel();
+        $student_card_id = $user->student_id;
         $arr_level = str_split($data['level']);
         $rand_start_level = (int) $arr_level[0];
         $rand_end_level = (int) $arr_level[1];
@@ -116,6 +117,9 @@ class TeacherSurveyController extends Controller
             return redirect()->back();
         }
 
+        activity('survey_teacher')
+            ->causedBy($user)
+            ->log($user->name . ' đã xuất thời khóa biểu');
         Session::flash('success', [
             'title' => 'Thành công',
             'content' => 'Đánh giá thành công, bạn có thể đóng cửa sổ',
