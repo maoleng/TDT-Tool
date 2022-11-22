@@ -50,6 +50,16 @@
                 </div>
             </a>
         </li>
+        <li>
+            <a {!! getAhrefTagContentPC(route('control_panel.teacher_survey.index')) !!}>
+                <div class="side-menu__icon">
+                    <i data-lucide="edit"></i>
+                </div>
+                <div class="side-menu__title">
+                    Đánh giá giảng viên
+                </div>
+            </a>
+        </li>
         @if (authed()->role === 3)
         <li class="side-nav__devider my-6"></li>
         <li>

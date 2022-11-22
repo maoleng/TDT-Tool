@@ -11,9 +11,11 @@ use App\Http\Controllers\MailNotificationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StatisticController;
+use App\Http\Controllers\TeacherSurveyController;
 use App\Http\Middleware\AdminAuthenticate;
 use App\Http\Middleware\AuthLogin;
 use App\Http\Middleware\IfAlreadyLogin;
+use App\Models\TDT;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Spatie\Activitylog\Models\Activity;
@@ -49,7 +51,10 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
             Route::post('/store', [BuildScheduleController::class, 'store'])->name('store');
             Route::post('/download', [BuildScheduleController::class, 'downloadSchedule'])->name('download');
         });
-
+        Route::group(['prefix' => 'teacher_survey', 'as' => 'teacher_survey.'], static function () {
+            Route::get('/', [TeacherSurveyController::class, 'index'])->name('index');
+            Route::post('/', [TeacherSurveyController::class, 'survey'])->name('survey');
+        });
     });
 
     Route::group(['prefix' => 'setting', 'as' => 'setting.'], static function () {
@@ -94,10 +99,10 @@ Route::get('/test', function () {
 });
 
 Route::get('/t', function () {
-    $a = Carbon::make('2022/09/23 19:00:00')->format('Ymd\THis');
-    $a = Carbon::make('20220928T235000Z')->toDateTimeString();
-    dd(now());
+
+
     dd($a);
+
 });
 
 Route::get('/test123', function () {
