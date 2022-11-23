@@ -58,6 +58,10 @@ class TeacherSurveyController extends Controller
             $view_state_generator = substr($view_state_generator_match[0], 33, -1);
             preg_match_all("/$student_card_id/", $all_survey, $student_card_id_match);
             $count = count($student_card_id_match[0]);
+            if ($count === 0 ) {
+                Session::flash('message', 'Có lỗi ở $count, vui lòng lói cho Leng để fix');
+                return redirect()->back();
+            }
             for ($i = 0; $i <= $count; $i++) {
                 $each_survey = $client->request('POST', 'https://teaching-quality-survey.tdtu.edu.vn/choosesurvey.aspx?Token='.$token, [
                     'form_params' => [
@@ -69,7 +73,7 @@ class TeacherSurveyController extends Controller
                 ])->getBody()->getContents();
                 if ($i === 0) {
                     preg_match('/id="__VIEWSTATE" value=".*"/', $each_survey, $view_state_match);
-                    $view_state = substr($view_state_match[0], 24, -1);
+                    $view_state_survey = substr($view_state_match[0], 24, -1);
                     preg_match('/id="__VIEWSTATEGENERATOR" value=".*"/', $each_survey, $view_state_generator_match);
                     $view_state_generator = substr($view_state_generator_match[0], 33, -1);
                     preg_match('/id="__EVENTVALIDATION" value=".*"/', $each_survey, $event_validation_match);
@@ -80,7 +84,7 @@ class TeacherSurveyController extends Controller
                     'form_params' => [
                         '__EVENTTARGET' => '',
                         '__EVENTARGUMENT' => '',
-                        '__VIEWSTATE' => $view_state,
+                        '__VIEWSTATE' => $view_state_survey,
                         '__VIEWSTATEGENERATOR' => $view_state_generator,
                         '__EVENTVALIDATION' => $event_validation,
                         'gv1$ctl02$group1' => 'rd'.random_int($rand_start_level, $rand_end_level),
@@ -112,7 +116,7 @@ class TeacherSurveyController extends Controller
                 ])->getBody()->getContents();
             }
         } catch (Exception $e) {
-            Session::flash('message', $e->getMessage());
+            Session::flash('message', '==='.$e->getMessage().' at line '.$e->getLine(). ' ###Teacher No.'.$i);
             return redirect()->back();
         }
 
