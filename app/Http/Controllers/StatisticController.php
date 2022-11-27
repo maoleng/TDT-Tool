@@ -131,8 +131,10 @@ class StatisticController extends Controller
             $count_mail_top_users_receive_notification[] = $user->notifications_count;
         }
 
-        activity('statistic_mail')->causedBy(userModel())
-            ->log('Ngốn '. round(memory_get_usage() / 1000000, 2)).' để gọi api';
+        $user = userModel();
+        activity('statistic_mail')->causedBy($user)
+            ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
+            ->log($user->name.' đã gọi API thống kê gửi mail');
 
         return [
             'mail_by_months' => $mail_by_months,
@@ -189,8 +191,10 @@ class StatisticController extends Controller
             $count_mail_top_users_export_schedule[] = $user->statistic_sessions_count;
         }
 
-        activity('statistic_build_schedule')->causedBy(userModel())
-            ->log('Ngốn '. round(memory_get_usage() / 1000000, 2)).' để gọi api';
+        $user = userModel();
+        activity('statistic_build_schedule')->causedBy($user)
+            ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
+            ->log($user->name.' đã gọi API thống kê xếp lịch');
 
         return [
             'export_by_months' => $export_by_months,
