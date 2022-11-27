@@ -122,6 +122,7 @@ class TeacherSurveyController extends Controller
 
         activity('survey_teacher')
             ->causedBy($user)
+            ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
             ->log($user->name . ' đã đánh giá giảng viên');
         Session::flash('success', [
             'title' => 'Thành công',

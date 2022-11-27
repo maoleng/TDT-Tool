@@ -45,6 +45,7 @@ class SendMailNotification implements ShouldQueue
 
         activity('send_mail_notification')->causedBy(userModel())
             ->performedOn($this->notification)
+            ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
             ->log('Đã gửi mail thông báo mới cho ' . count($this->mails) . ' bạn');
 
     }

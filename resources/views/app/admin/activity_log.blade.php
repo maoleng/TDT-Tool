@@ -11,7 +11,7 @@
             <tr>
                 <th class="text-center whitespace-nowrap">Loại</th>
                 <th class="text-center whitespace-nowrap">Mô tả</th>
-                <th class="text-center whitespace-nowrap">Đối tượng</th>
+                <th class="text-center whitespace-nowrap">Dung lượng</th>
                 <th class="text-center whitespace-nowrap">Ngày hành động</th>
             </tr>
             </thead>
@@ -20,7 +20,7 @@
                 <tr class="intro-x">
                     <td class="w-2">
                         <span class="flex justify-center items-center font-medium whitespace-nowrap">
-                            {{$activity->log_name}}
+                            {{$activity->log}}
                         </span>
                     </td>
                     <td class="table-report__action w-2">
@@ -30,7 +30,7 @@
                     </td>
                     <td class="table-report__action w-2">
                         <span class="flex justify-center items-center font-medium whitespace-nowrap">
-                            {{$activity->subject_type}}
+                            {{$activity->getExtraProperty('memory')}}
                         </span>
                     </td>
                     <td class="table-report__action w-2">

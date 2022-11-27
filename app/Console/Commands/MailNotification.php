@@ -59,6 +59,7 @@ class MailNotification extends Command
 
                 activity('new_notification')->causedBy(userModel())
                     ->performedOn($data['notification'])
+                    ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
                     ->log('Có thông báo mới: ' . $data['notification']->name);
 
                 $seen_notifications[] = [$current_notification_id, $data['unit_id']];

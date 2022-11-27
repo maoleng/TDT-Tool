@@ -69,6 +69,7 @@ class BuildScheduleController extends Controller
                 activity('import_schedule')
                     ->causedBy($user)
                     ->performedOn($session)
+                    ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
                     ->log($user->name . ' đã nhập thời khóa biểu');
             } catch (Exception $e) {
                 DB::rollBack();
@@ -103,6 +104,7 @@ class BuildScheduleController extends Controller
         activity('export_schedule')
             ->causedBy($user)
             ->performedOn($session)
+            ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
             ->log($user->name . ' đã xuất thời khóa biểu');
 
         return $this->download($calendars, $options);
