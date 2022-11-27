@@ -26,7 +26,7 @@ class MailNotificationController extends Controller
         View::share('route', 'index');
     }
 
-    public function mailNotification(): ViewReturn
+    public function index(): ViewReturn
     {
         $subscribed_departments = Department::query()->whereHas('subscribers', static function ($q) {
             $q->where('user_id', authed()->id);

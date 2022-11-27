@@ -38,16 +38,16 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
 
     Route::group(['as' => 'control_panel.'], static function () {
         Route::group(['prefix' => 'read_notification', 'as' => 'read_notification.'], static function () {
-            Route::get('/', [NotificationController::class, 'readNotification'])->name('index');
+            Route::get('/', [NotificationController::class, 'index'])->name('index');
             Route::post('/read_news', [NotificationController::class, 'readNews'])->name('read_news');
             Route::post('/read_all', [NotificationController::class, 'readAll'])->name('read_all');
         });
         Route::group(['prefix' => 'mail_notification', 'as' => 'mail_notification.'], static function () {
-            Route::get('/', [MailNotificationController::class, 'mailNotification'])->name('index');
+            Route::get('/', [MailNotificationController::class, 'index'])->name('index');
             Route::post('/choose_department', [MailNotificationController::class, 'chooseDepartment'])->name('choose_department');
         });
         Route::group(['prefix' => 'build_schedule', 'as' => 'build_schedule.'], static function () {
-            Route::get('/', [BuildScheduleController::class, 'buildSchedule'])->name('index');
+            Route::get('/', [BuildScheduleController::class, 'index'])->name('index');
             Route::post('/store', [BuildScheduleController::class, 'store'])->name('store');
             Route::post('/download', [BuildScheduleController::class, 'downloadSchedule'])->name('download');
         });

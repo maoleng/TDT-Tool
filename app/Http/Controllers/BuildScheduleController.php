@@ -31,7 +31,7 @@ class BuildScheduleController extends Controller
         View::share('route', 'index');
     }
 
-    public function buildSchedule(): ViewReturn
+    public function index(): ViewReturn
     {
         return view('app.control_panel.build_schedule', [
             'breadcrumb' => 'Xếp lịch thời khóa biểu'

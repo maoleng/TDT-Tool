@@ -27,7 +27,7 @@ class NotificationController extends Controller
         View::share('route', 'index');
     }
 
-    public function readNotification(): ViewReturn
+    public function index(): ViewReturn
     {
         $promotions = Promotion::query()->where('user_id', authed()->id)->whereNull('status')->get();
 
