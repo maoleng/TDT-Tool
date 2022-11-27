@@ -9,6 +9,7 @@ use App\Models\Date;
 use App\Models\Group;
 use App\Models\Period;
 use App\Models\Schedule;
+use App\Models\Semester;
 use App\Models\Session as SessionModel;
 use App\Models\Subject;
 use App\Models\User;
@@ -33,8 +34,11 @@ class BuildScheduleController extends Controller
 
     public function index(): ViewReturn
     {
+        $cur_semester = Date::query()->whereDate('date', now())->first()->semester->semester;
+
         return view('app.control_panel.build_schedule', [
-            'breadcrumb' => 'Xếp lịch thời khóa biểu'
+            'breadcrumb' => 'Xếp lịch thời khóa biểu',
+            'cur_semester' => $cur_semester,
         ]);
     }
 
@@ -43,7 +47,9 @@ class BuildScheduleController extends Controller
         $user = userModel();
         $data = $request->validated();
         if (isset($data['source'])) {
-            $semester_id = Date::query()->whereDate('date', now())->first()->semester_id;
+            $cur_start_year = Date::query()->whereDate('date', now())->first()->semester->start_year;
+            $semester_id = Semester::query()->where('semester', $data['semester'])
+                ->where('start_year', $cur_start_year)->first()->id;
             DB::beginTransaction();
             try {
                 SessionModel::query()->where('user_id', authed()->id)->update(['active' => false]);
@@ -56,7 +62,7 @@ class BuildScheduleController extends Controller
                     $event_data = $this->getEventData($item);
                     $group = $this->createSubjectAndGroup($event_data, $session, $semester_id);
                     $this->syncGroupPeriods($item, $group);
-                    $this->getDatesOfSchedule($item, $event_data['day'], $group, $event_data['room']);
+                    $this->getDatesOfSchedule($item, $event_data['day'], $group, $event_data['room'], $data['semester']);
                 }
                 DB::commit();
 
@@ -66,7 +72,7 @@ class BuildScheduleController extends Controller
                     ->log($user->name . ' đã nhập thời khóa biểu');
             } catch (Exception $e) {
                 DB::rollBack();
-                Session::flash('message', $e->getMessage());
+                Session::flash('message', $e->getMessage().' at '.$e->getLine());
                 return redirect()->back();
             }
         }
@@ -275,12 +281,12 @@ class BuildScheduleController extends Controller
     /**
      * @throws \JsonException
      */
-    private function getDatesOfSchedule($item, $day_of_week, $group, $room): void
+    private function getDatesOfSchedule($item, $day_of_week, $group, $room, $semester): void
     {
         preg_match('/Week:.+</', $item, $match);
         preg_match('/[\d-]+/', substr($match[0], 14), $match);
-        $first_dash_week = Config::query()->where('key', 'first_dash_week')->first()->value;
-        $cur_week = $first_dash_week;
+        $start_study_week = getConfigValue('start_study_week.semester_'.$semester);
+        $cur_week = $start_study_week;
         $weeks = mb_str_split($match[0]);
         $new_weeks = [];
         foreach ($weeks as $key => $week) {
@@ -338,7 +344,7 @@ class BuildScheduleController extends Controller
         $subject_id = substr($match[0], 1, 6);
         preg_match('/b>[\wỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđĐ -]+/u', $item, $match);
         $subject_name = substr($match[0], 2);
-        preg_match('/Group:.+\d+\)/U', $item, $match);
+        preg_match('/Group:.+\d+/U', $item, $match);
         preg_match('/\d+/', $match[0], $match);
         $group_id = $match[0];
 

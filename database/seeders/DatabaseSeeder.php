@@ -30,7 +30,11 @@ class DatabaseSeeder extends Seeder
         $this->createRootData();
         $this->createPeriods();
 
-        Config::query()->create(['key' => 'first_dash_week', 'value' => '1']);
+        Config::query()->create([
+            ['id' => Str::uuid(), 'group' =>  'start_study_week', 'key' => 'semester_1', 'value' => '1'],
+            ['id' => Str::uuid(), 'group' =>  'start_study_week', 'key' => 'semester_2', 'value' => '21'],
+            ['id' => Str::uuid(), 'group' =>  'start_study_week', 'key' => 'semester_3', 'value' => '45'],
+        ]);
         $default = [
             'start_date' => '15-08-2022',
             'end_date' => '20-08-2023',

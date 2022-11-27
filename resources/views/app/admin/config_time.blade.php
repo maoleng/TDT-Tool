@@ -7,17 +7,26 @@
 @section('content')
     <div class="intro-y col-span-12 lg:col-span-6">
 
-    <form action="{{route('admin.config.update_first_dash_week')}}" method="post" class="intro-y col-span-12 lg:col-span-6">
+    <form action="{{route('admin.config.update_start_study_weeks')}}" method="post" class="intro-y col-span-12 lg:col-span-6">
         <div class="intro-y col-span-12 lg:col-span-6">
             @method('PUT')
             @csrf
             <div class="intro-y box p-5">
                 <div class="flex flex-col sm:flex-row items-center border-b border-slate-200/60 dark:border-darkmode-400" style="padding-bottom:1.25rem">
-                    <h2 class="font-medium text-base mr-auto">Tuần học đầu tiên của {{$semester->semesterName}} năm học {{$semester->yearRange}}</h2>
+                    <h2 class="font-medium text-base mr-auto">Tuần học đầu tiên của năm học {{$semester->yearRange}}</h2>
                 </div>
                 <br>
                 <div>
-                    <input id="crud-form-1" type="text" name="first_dash_week" value="{{$first_dash_week}}" class="form-control form-control-rounded w-full" placeholder="5">
+                    <label class="form-label">Học kì 1</label>
+                    <input type="text" name="semester_1" value="{{ $start_study_weeks['semester_1'] }}" class="form-control form-control-rounded w-full" placeholder="5">
+                </div>
+                <div class="mt-5">
+                    <label class="form-label">Học kì 2</label>
+                    <input type="text" name="semester_2" value="{{ $start_study_weeks['semester_2'] }}" class="form-control form-control-rounded w-full" placeholder="5">
+                </div>
+                <div class="mt-5">
+                    <label class="form-label">Học kì hè</label>
+                    <input type="text" name="semester_3" value="{{ $start_study_weeks['semester_3'] }}" class="form-control form-control-rounded w-full" placeholder="5">
                 </div>
                 <div class="text-right mt-5">
                     <button type="submit" class="btn btn-primary w-24">Lưu</button>

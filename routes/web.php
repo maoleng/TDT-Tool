@@ -70,7 +70,7 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
             Route::get('/', [ConfigController::class, 'index'])->name('index');
             Route::post('/create_study_plan', [ConfigController::class, 'createStudyPlan'])->name('create_study_plan');
             Route::put('/update_period', [ConfigController::class, 'updatePeriod'])->name('update_period');
-            Route::put('/update_first_dash_week', [ConfigController::class, 'updateFirstDashWeek'])->name('update_first_dash_week');
+            Route::put('/update_start_study_weeks', [ConfigController::class, 'updateStartStudyWeeks'])->name('update_start_study_weeks');
         });
         Route::group(['prefix' => 'setting', 'as' => 'setting.'], static function () {
             Route::put('/auto_read_notification', [SettingController::class, 'toggleAutoReadNotification'])->name('auto_read_notification');

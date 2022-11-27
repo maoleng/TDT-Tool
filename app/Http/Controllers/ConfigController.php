@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateStudyPlanRequest;
 use App\Http\Requests\SetFirstDashWeekRequest;
 use App\Http\Requests\UpdatePeriodRequest;
+use App\Http\Requests\UpdateStartStudyWeekRequest;
 use App\Models\Config;
 use App\Models\Date;
 use App\Models\Period;
@@ -42,7 +43,8 @@ class ConfigController extends Controller
                 'ended_at' => $end_time[0] . $end_time[1],
             ];
         });
-        $first_dash_week = Config::query()->where('key', 'first_dash_week')->first()->value;
+        $start_study_weeks = Config::query()->where('group', 'start_study_week')
+            ->get()->pluck('value', 'key')->toArray();
 
         $semester_id = Date::query()->whereDate('date', now())->first()->semester_id;
         $semester = Semester::query()->find($semester_id);
@@ -58,7 +60,7 @@ class ConfigController extends Controller
         return view('app.admin.config_time', [
             'breadcrumb' => 'Cấu hình thời gian cho năm học ' . now()->year,
             'periods' => $periods,
-            'first_dash_week' => $first_dash_week,
+            'start_study_weeks' => $start_study_weeks,
             'semester' => $semester,
             'first_date' => $first_date,
             'last_date' => $last_date,
@@ -143,13 +145,15 @@ class ConfigController extends Controller
         return redirect()->back();
     }
 
-    public function updateFirstDashWeek(SetFirstDashWeekRequest $request): RedirectResponse
+    public function updateStartStudyWeeks(UpdateStartStudyWeekRequest $request): RedirectResponse
     {
-        Config::query()->where('key', 'first_dash_week')->delete();
-        Config::query()->create([
-            'key' => 'first_dash_week',
-            'value' => $request->get('first_dash_week'),
-        ]);
+        for ($i = 1; $i <= 3; $i++) {
+            Config::query()->where('group', 'start_study_week')
+                ->where('key', 'semester_'.$i)
+                ->update([
+                    'value' => $request->get('semester_'.$i),
+                ]);
+        }
 
         return redirect()->back();
     }

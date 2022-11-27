@@ -101,7 +101,25 @@
                     <h2 class="mb-5 font-medium text-base mr-auto">Nhập lịch</h2>
                 </div>
                 <div class="mt-5">
-                    <div>
+                    <div class="">
+                        <label>Thời gian</label>
+                        <div class="flex flex-col sm:flex-row mt-2">
+                            <div class="form-check mr-5">
+                                <input id="radio-switch-1" class="form-check-input" type="radio" name="semester" @if ($cur_semester === 1) checked @endif value="1">
+                                <label class="form-check-label" for="radio-switch-1">Học kì 1</label>
+                            </div>
+                            <div class="form-check mr-5 mt-2 sm:mt-0">
+                                <input id="radio-switch-2" class="form-check-input" type="radio" name="semester" @if ($cur_semester === 2) checked @endif value="2">
+                                <label class="form-check-label" for="radio-switch-2">Học kì 2</label>
+                            </div>
+                            <div class="form-check mr-5 mt-2 sm:mt-0">
+                                <input id="radio-switch-3" class="form-check-input" type="radio" name="semester" @if ($cur_semester === 3) checked @endif value="3">
+                                <label class="form-check-label" for="radio-switch-3">Học kì hè</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="mt-5">
                         <label for="crud-form-1" class="form-label">Mã nguồn thời khóa biểu tổng quát</label>
                         <textarea type="text" name="source" class="form-control form-control-rounded w-full" placeholder="<!DOCTYPE HTML>...."></textarea>
                     </div>

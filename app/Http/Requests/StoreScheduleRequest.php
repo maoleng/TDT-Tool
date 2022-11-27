@@ -3,17 +3,22 @@
 namespace App\Http\Requests;
 
 
+use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\ArrayShape;
 
 class StoreScheduleRequest extends BaseRequest
 {
 
-    #[ArrayShape(['source' => "string[]", 'tdt_password' => "string[]"])]
+    #[ArrayShape(['source' => "string[]", 'semester' => "array"])]
     public function rules(): array
     {
         return [
             'source' => [
-                'required_without:tdt_password',
+                'required',
+            ],
+            'semester' => [
+                'required',
+                Rule::in(['1', '2', '3']),
             ],
         ];
 
