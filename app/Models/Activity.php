@@ -15,10 +15,11 @@ class Activity extends OriginalActivity
         'group', 'key', 'value',
     ];
 
-    public function getLogAttribute()
+    public function getLogAttribute(): ?string
     {
         return match ($this->log_name) {
             'statistic_mail' => 'Thống kê mail',
+            'statistic_build_schedule' => 'Thống kê xếp lịch',
             'export_schedule' => 'Xuất lịch',
             'import_schedule' => 'Nhập lịch',
             'login' => 'Đăng nhập',
@@ -26,6 +27,7 @@ class Activity extends OriginalActivity
             'survey_teacher' => 'Đánh giá giảng viên',
             'send_mail_notification' => 'Hệ thống gửi mail',
             'new_notification' => 'Thông báo mới',
+            default => null,
         };
     }
 
