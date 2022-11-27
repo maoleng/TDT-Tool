@@ -45,6 +45,7 @@ class StatisticController extends Controller
     ])]
     public function mailSent(): array
     {
+        ini_set('memory_limit','150M');
         $count_mail_this_week = 0;
         $mails_this_week = Notification::query()
             ->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
