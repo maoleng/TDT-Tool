@@ -131,6 +131,9 @@ class StatisticController extends Controller
             $count_mail_top_users_receive_notification[] = $user->notifications_count;
         }
 
+        activity('statistic_mail')->causedBy(userModel())
+            ->log('Ngốn '. round(memory_get_usage() / 1000000, 2)).' để gọi api';
+
         return [
             'mail_by_months' => $mail_by_months,
             'mail_by_days' => array_values($mail_by_days),
@@ -185,6 +188,10 @@ class StatisticController extends Controller
             $name_top_users_export_schedule[] = $user->name;
             $count_mail_top_users_export_schedule[] = $user->statistic_sessions_count;
         }
+
+        activity('statistic_build_schedule')->causedBy(userModel())
+            ->log('Ngốn '. round(memory_get_usage() / 1000000, 2)).' để gọi api';
+
         return [
             'export_by_months' => $export_by_months,
             'count_export_this_week' => $count_export_this_week,
