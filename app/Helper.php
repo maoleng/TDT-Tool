@@ -1,10 +1,13 @@
 <?php
 
 use App\Lib\JWT\JWT;
+use App\Models\Activity;
 use App\Models\Config;
 use App\Models\Session;
 use App\Models\Setting;
 use App\Models\User;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -97,3 +100,30 @@ if (!function_exists('getSettings')) {
     }
 }
 
+if (! function_exists('activityLog')) {
+    function activityLog(string $name, string $description, float $memory, Model $caused_by, Model $performed_on = null)
+    {
+        $activity = activity($name)->causedBy($caused_by)
+            ->withProperties(['memory' => $memory.' MB']);
+        $activity = isset($performed_on) ? $activity->performedOn($performed_on) : $activity;
+        $activity->log($description);
+
+        $content = '<b>'.(new Activity)->prettyLog($name).'</b>'."\n\n".
+            $description."\n".
+            now()->format('d-m-Y H:i:s')."\n".
+            $memory.' MB';
+
+        (new Client)->post(Activity::TELEGRAM_URL, [
+            'verify' => false,
+            'headers' => [
+                'token' => env('LOG_SECRET_KEY'),
+            ],
+            'json' => [
+                'channel_uuid' => env('LOG_CHANNEL_UUID'),
+                'content' => $content
+            ],
+        ]);
+    }
+
+
+}

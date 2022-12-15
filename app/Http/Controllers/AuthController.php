@@ -45,9 +45,11 @@ class AuthController extends Controller
         $device = (new DeviceController())->createDevice($user, session()->get('device_id'));
         session()->put('token', $device->token);
 
-        activity('login')->causedBy($user)
-            ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
-            ->log($user->name . ' đã đăng nhập vào hệ thống');
+        activityLog('login',
+            $user->name . ' đã đăng nhập vào hệ thống',
+            round(memory_get_usage() / 1000000, 2),
+            $user
+        );
 
         return redirect()->route('index');
 
@@ -61,9 +63,11 @@ class AuthController extends Controller
         session()->flush();
         session()->save();
 
-        activity('logout')->causedBy($user)
-            ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
-            ->log($user->name . ' đã đăng xuất khỏi hệ thống');
+        activityLog('logout',
+            $user->name . ' đã đăng xuất khỏi hệ thống',
+            round(memory_get_usage() / 1000000, 2),
+            $user,
+        );
 
         return redirect()->route('login');
     }

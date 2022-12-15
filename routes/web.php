@@ -23,6 +23,8 @@ use Spatie\Crypto\Rsa\PrivateKey;
 use Spatie\Crypto\Rsa\PublicKey;
 
 Route::get('/', static function () {
+//    $a = \App\Models\Activity::query()->get()->toArray();
+//    dd($a);
     return redirect()->route('login');
 });
 
@@ -92,10 +94,10 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
 Route::get('/test', function () {
     $data = 'my secret data';
     $privateKey = PrivateKey::fromString(env('PRIVATE_KEY'));
-    $encryptedData = $privateKey->encrypt($data);
     $publicKey = PublicKey::fromString(env('PUBLIC_KEY'));
-    $decryptedData = $publicKey->decrypt($encryptedData);
-
+    $encryptedData = $publicKey->encrypt($data);
+    $decryptedData = $privateKey->decrypt($encryptedData);
+dd($decryptedData, $encryptedData);
 });
 
 Route::get('/t', function () {

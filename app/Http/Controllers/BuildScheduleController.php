@@ -66,11 +66,12 @@ class BuildScheduleController extends Controller
                 }
                 DB::commit();
 
-                activity('import_schedule')
-                    ->causedBy($user)
-                    ->performedOn($session)
-                    ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
-                    ->log($user->name . ' đã nhập thời khóa biểu');
+                activityLog('import_schedule',
+                    $user->name . ' đã nhập thời khóa biểu',
+                    round(memory_get_usage() / 1000000, 2),
+                    $user,
+                    $session
+                );
             } catch (Exception $e) {
                 DB::rollBack();
                 Session::flash('message', $e->getMessage().' at '.$e->getLine());
@@ -101,11 +102,12 @@ class BuildScheduleController extends Controller
             $calendars = $this->getCalendarICS($session->groups, $options);
         }
 
-        activity('export_schedule')
-            ->causedBy($user)
-            ->performedOn($session)
-            ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
-            ->log($user->name . ' đã xuất thời khóa biểu');
+        activityLog('export_schedule',
+            $user->name . ' đã xuất thời khóa biểu',
+            round(memory_get_usage() / 1000000, 2),
+            $user,
+            $session
+        );
 
         return $this->download($calendars, $options);
     }

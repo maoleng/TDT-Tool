@@ -132,9 +132,11 @@ class StatisticController extends Controller
         }
 
         $user = userModel();
-        activity('statistic_mail')->causedBy($user)
-            ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
-            ->log($user->name.' đã gọi API thống kê gửi mail');
+        activityLog('statistic_mail',
+            $user->name.' đã gọi API thống kê gửi mail',
+            round(memory_get_usage() / 1000000, 2),
+            $user,
+        );
 
         return [
             'mail_by_months' => $mail_by_months,
@@ -192,9 +194,11 @@ class StatisticController extends Controller
         }
 
         $user = userModel();
-        activity('statistic_build_schedule')->causedBy($user)
-            ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
-            ->log($user->name.' đã gọi API thống kê xếp lịch');
+        activityLog('statistic_build_schedule',
+            $user->name.' đã gọi API thống kê xếp lịch',
+            round(memory_get_usage() / 1000000, 2),
+            $user,
+        );
 
         return [
             'export_by_months' => $export_by_months,

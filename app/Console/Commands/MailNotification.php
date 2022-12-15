@@ -57,10 +57,12 @@ class MailNotification extends Command
                 $job = new SendMailNotification($template_mail, $user_mails, $data['notification']);
                 dispatch($job);
 
-                activity('new_notification')->causedBy(userModel())
-                    ->performedOn($data['notification'])
-                    ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
-                    ->log('Có thông báo mới: ' . $data['notification']->name);
+                activityLog('new_notification',
+                    'Có thông báo mới: ' . $data['notification']->name,
+                    round(memory_get_usage() / 1000000, 2),
+                    userModel(),
+                    $data['notification']
+                );
 
                 $seen_notifications[] = [$current_notification_id, $data['unit_id']];
             }

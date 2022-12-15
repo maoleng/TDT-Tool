@@ -62,7 +62,7 @@ class TeacherSurveyController extends Controller
                 Session::flash('message', 'Có lỗi ở $count, vui lòng lói cho Leng để fix');
                 return redirect()->back();
             }
-            for ($i = 0; $i <= $count; $i++) {
+            for ($i = 0; $i < $count; $i++) {
                 $each_survey = $client->request('POST', 'https://teaching-quality-survey.tdtu.edu.vn/choosesurvey.aspx?Token='.$token, [
                     'form_params' => [
                         '__EVENTTARGET' => 'gvMonHoc',
@@ -120,10 +120,11 @@ class TeacherSurveyController extends Controller
             return redirect()->back();
         }
 
-        activity('survey_teacher')
-            ->causedBy($user)
-            ->withProperties(['memory' => round(memory_get_usage() / 1000000, 2).' MB'])
-            ->log($user->name . ' đã đánh giá giảng viên');
+        activityLog('survey_teacher',
+            $user->name . ' đã đánh giá giảng viên',
+            round(memory_get_usage() / 1000000, 2),
+            $user
+        );
         Session::flash('success', [
             'title' => 'Thành công',
             'content' => 'Đánh giá thành công, bạn có thể đóng cửa sổ',
