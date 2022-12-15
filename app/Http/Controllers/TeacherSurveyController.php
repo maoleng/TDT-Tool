@@ -44,7 +44,14 @@ class TeacherSurveyController extends Controller
             ],
         ])->getBody()->getContents();
         if (str_contains($login_response, 'Đăng nhập thất bại')) {
-            Session::flash('message', 'Sai mật khẩu');
+            $message = 'Sai mật khẩu';
+            activityLog('bug',
+                $message,
+                round(memory_get_usage() / 1000000, 2),
+                $user, null, ['type' => 'survey_teacher']
+            );
+            Session::flash('message', $message);
+
             return redirect()->back();
         }
 
@@ -59,7 +66,14 @@ class TeacherSurveyController extends Controller
             preg_match_all("/$student_card_id/", $all_survey, $student_card_id_match);
             $count = count($student_card_id_match[0]);
             if ($count === 0 ) {
-                Session::flash('message', 'Có lỗi ở $count, vui lòng lói cho Leng để fix');
+                $message = 'Có lỗi ở $count, vui lòng lói cho Leng để fix';
+                activityLog('bug',
+                    $message,
+                    round(memory_get_usage() / 1000000, 2),
+                    $user, null, ['all_survey' => $all_survey, 'type' => 'survey_teacher']
+                );
+                Session::flash('message', $message);
+
                 return redirect()->back();
             }
             for ($i = 0; $i < $count; $i++) {
@@ -116,7 +130,14 @@ class TeacherSurveyController extends Controller
                 ])->getBody()->getContents();
             }
         } catch (Exception $e) {
-            Session::flash('message', '==='.$e->getMessage().' at line '.$e->getLine(). ' ###Teacher No.'.$i);
+            $message = $e->getMessage().' at line '.$e->getLine(). ' ###Teacher No.'.(isset($i) ? ($i + 1) : 'null');
+            activityLog('bug',
+                $message,
+                round(memory_get_usage() / 1000000, 2),
+                $user, null, ['type' => 'survey_teacher']
+            );
+            Session::flash('message', $message);
+
             return redirect()->back();
         }
 

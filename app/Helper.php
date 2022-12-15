@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 if (!function_exists('c')) {
     function c(string $key)
@@ -101,14 +102,19 @@ if (!function_exists('getSettings')) {
 }
 
 if (! function_exists('activityLog')) {
-    function activityLog(string $name, string $description, float $memory, Model $caused_by, Model $performed_on = null)
+    function activityLog(string $name, string $description, float $memory, Model $caused_by,
+        Model $performed_on = null, $properties = [])
     {
+        $properties = array_merge(['memory' => $memory.' MB'], $properties);
         $activity = activity($name)->causedBy($caused_by)
-            ->withProperties(['memory' => $memory.' MB']);
+            ->withProperties($properties);
         $activity = isset($performed_on) ? $activity->performedOn($performed_on) : $activity;
         $activity->log($description);
 
-        $content = '<b>'.(new Activity)->prettyLog($name).'</b>'."\n\n".
+        $title = $name === 'bug' ?
+            '<b>'.(new Activity)->prettyLog($name).'</b>: '.Str::lower((new Activity)->prettyLog($properties['type'])) :
+            '<b>'.(new Activity)->prettyLog($name).'</b>';
+        $content = $title."\n\n".
             $description."\n".
             now()->format('d-m-Y H:i:s')."\n".
             $memory.' MB';

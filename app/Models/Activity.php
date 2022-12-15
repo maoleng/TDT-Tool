@@ -27,6 +27,7 @@ class Activity extends OriginalActivity
     public function prettyLog($log): ?string
     {
         return match ($log) {
+            'bug' => 'Lỗi',
             'statistic_mail' => 'Thống kê mail',
             'statistic_build_schedule' => 'Thống kê xếp lịch',
             'export_schedule' => 'Xuất lịch',

@@ -58,6 +58,9 @@ class BuildScheduleController extends Controller
                     'raw_html' => $data['source'],
                 ]);
                 $items = $this->pluckItems($data['source']);
+                if (empty($items)) {
+                    throw new \RuntimeException('Có lỗi gì đó');
+                }
                 foreach ($items as $item) {
                     $event_data = $this->getEventData($item);
                     $group = $this->createSubjectAndGroup($event_data, $session, $semester_id);
@@ -74,7 +77,14 @@ class BuildScheduleController extends Controller
                 );
             } catch (Exception $e) {
                 DB::rollBack();
-                Session::flash('message', $e->getMessage().' at '.$e->getLine());
+                $message = $e->getMessage().' at '.$e->getLine();
+                Session::flash('message', $message);
+                activityLog('bug',
+                    $message,
+                    round(memory_get_usage() / 1000000, 2),
+                    $user, null ,['type' => 'import_schedule']
+                );
+
                 return redirect()->back();
             }
         }
