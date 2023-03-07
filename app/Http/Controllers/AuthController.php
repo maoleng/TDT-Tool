@@ -29,6 +29,7 @@ class AuthController extends Controller
         if ($domain !== 'student.tdtu.edu.vn') {
             return redirect()->back();
         }
+        $active = (bool) User::query()->where('email', $user->email)->first();
         $user = User::query()->updateOrCreate(
             [
                 'email' => $user->email,
@@ -38,7 +39,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'google_id' => $user->id,
                 'avatar' => $user->avatar,
-                'active' => true,
+                'active' => $active,
             ],
         );
 

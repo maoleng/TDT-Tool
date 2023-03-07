@@ -20,6 +20,9 @@ class AuthLogin
         if (empty($check) || empty($check->role)) {
             return redirect()->route('login');
         }
+        if ($check->active === false) {
+            return abort('403');
+        }
 
         return $next($request);
     }
