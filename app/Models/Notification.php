@@ -17,7 +17,7 @@ class Notification extends Base
     public const NOTIFICATION_AT_LEAST_TO_READ = 50;
     public const MAX_NOTIFICATION_PAGE = 70;
     public const LIMIT_REQUEST_NOTIFICATION_IF_404 = 3;
-    public const START_NOTIFICATION_ID = '139487';
+    public const START_NOTIFICATION_ID = '141054';
     public const CRON_NOTIFICATION_TIME = 30; // minutes
 
     protected $fillable = [
