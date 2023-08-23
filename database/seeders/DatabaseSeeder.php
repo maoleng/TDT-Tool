@@ -30,17 +30,17 @@ class DatabaseSeeder extends Seeder
         $this->createRootData();
         $this->createPeriods();
 
-        Config::query()->create([
-            ['id' => Str::uuid(), 'group' =>  'start_study_week', 'key' => 'semester_1', 'value' => '1'],
-            ['id' => Str::uuid(), 'group' =>  'start_study_week', 'key' => 'semester_2', 'value' => '21'],
-            ['id' => Str::uuid(), 'group' =>  'start_study_week', 'key' => 'semester_3', 'value' => '45'],
+        Config::query()->insert([
+            ['id' => Str::uuid()->toString(), 'group' =>  'start_study_week', 'key' => 'semester_1', 'value' => '1'],
+            ['id' => Str::uuid()->toString(), 'group' =>  'start_study_week', 'key' => 'semester_2', 'value' => '22'],
+            ['id' => Str::uuid()->toString(), 'group' =>  'start_study_week', 'key' => 'semester_3', 'value' => '44'],
         ]);
         $default = [
-            'start_date' => '15-08-2022',
-            'end_date' => '20-08-2023',
-            'semester_1_start_date' => '15-08-2022',
-            'semester_2_start_date' => '02-01-2023',
-            'semester_3_start_date' => '19-06-2023',
+            'start_date' => '21-08-2023',
+            'end_date' => '18-08-2024',
+            'semester_1_start_date' => '21-08-2023',
+            'semester_2_start_date' => '15-01-2024',
+            'semester_3_start_date' => '17-06-2024',
         ];
         (new \App\Http\Controllers\ConfigController())->createStudyPlan(null, $default);
 
@@ -94,91 +94,91 @@ class DatabaseSeeder extends Seeder
     {
         $data = [
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 1,
                 'started_ed' => '06:50',
                 'ended_at' => '07:40',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 2,
                 'started_ed' => '07:40',
                 'ended_at' => '08:30',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 3,
                 'started_ed' => '08:30',
                 'ended_at' => '09:20',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 4,
                 'started_ed' => '9:30',
                 'ended_at' => '10:20',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 5,
                 'started_ed' => '10:20',
                 'ended_at' => '11:10',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 6,
                 'started_ed' => '11:10',
                 'ended_at' => '12:00',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 7,
                 'started_ed' => '12:45',
                 'ended_at' => '13:35',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 8,
                 'started_ed' => '13:35',
                 'ended_at' => '14:25',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 9,
                 'started_ed' => '14:25',
                 'ended_at' => '15:15',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 10,
                 'started_ed' => '15:25',
                 'ended_at' => '16:15',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 11,
                 'started_ed' => '16:15',
                 'ended_at' => '17:05',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 12,
                 'started_ed' => '17:05',
                 'ended_at' => '17:55',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 13,
                 'started_ed' => '18:05',
                 'ended_at' => '18:55',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 14,
                 'started_ed' => '18:55',
                 'ended_at' => '19:45',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'period' => 15,
                 'started_ed' => '19:45',
                 'ended_at' => '20:35',
@@ -191,19 +191,19 @@ class DatabaseSeeder extends Seeder
     {
         Config::query()->insert([
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'group' => 'mail_notification',
                 'key' => 'sender',
                 'value' => 'Thông báo từ TDTU',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'group' => 'mail_notification',
                 'key' => 'header_logo',
                 'value' => 'https://i.pinimg.com/564x/49/be/ae/49beae1cdacd77f3459d9c5d6ff5555c.jpg',
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'group' => 'mail_notification',
                 'key' => 'footer_logo',
                 'value' => 'https://i.pinimg.com/564x/de/86/29/de8629935b90d646b825e2adbfce0395.jpg',
@@ -215,67 +215,67 @@ class DatabaseSeeder extends Seeder
     {
         Department::query()->insert([
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => '5',
                 'type' => Department::FACULTY,
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => 'B',
                 'type' => Department::FACULTY,
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => 'G',
                 'type' => Department::POPULAR,
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => 'P02',
                 'type' => Department::POPULAR,
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => 'P03',
                 'type' => Department::POPULAR,
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => 'P04',
                 'type' => Department::POPULAR,
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => 'P07',
                 'type' => Department::POPULAR,
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => 'P09',
                 'type' => Department::POPULAR,
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => 'P12',
                 'type' => Department::POPULAR,
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => 'P15',
                 'type' => Department::POPULAR,
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => 'P27',
                 'type' => Department::POPULAR,
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => 'P35',
                 'type' => Department::POPULAR,
             ],
             [
-                'id' => Str::uuid(),
+                'id' => Str::uuid()->toString(),
                 'unit_id' => 'P48',
                 'type' => Department::POPULAR,
             ],
