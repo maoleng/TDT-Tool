@@ -53,9 +53,9 @@ class ConfigController extends Controller
         $semester_ids = json_decode($semester_ids_string, false, 512, JSON_THROW_ON_ERROR);
         $first_date = Date::query()->whereIn('semester_id', $semester_ids)->orderBy('date', 'ASC')->first()->date->format('d/m/Y');
         $last_date = Date::query()->whereIn('semester_id', $semester_ids)->orderBy('date', 'DESC')->first()->date->format('d/m/Y');
-        $first_date_semester_1 = Date::query()->where('semester_id', $semester_ids[0])->first()->date->format('d/m/Y');
-        $first_date_semester_2 = Date::query()->where('semester_id', $semester_ids[1])->first()->date->format('d/m/Y');
-        $first_date_semester_3 = Date::query()->where('semester_id', $semester_ids[2])->first()->date->format('d/m/Y');
+        $first_date_semester_1 = Date::query()->where('semester_id', $semester_ids[0])->orderBy('date', 'ASC')->first()->date->format('d/m/Y');
+        $first_date_semester_2 = Date::query()->where('semester_id', $semester_ids[1])->orderBy('date', 'ASC')->first()->date->format('d/m/Y');
+        $first_date_semester_3 = Date::query()->where('semester_id', $semester_ids[2])->orderBy('date', 'ASC')->first()->date->format('d/m/Y');
 
         return view('app.admin.config_time', [
             'breadcrumb' => 'Cấu hình thời gian cho năm học ' . now()->year,
