@@ -46,7 +46,7 @@
                 </a>
             </li>
             <li>
-                <a {!! getAhrefTagContentMB(route('control_panel.build_schedule.index')) !!}>
+                <a target="_blank" {!! getAhrefTagContentMB(route('control_panel.build_schedule.index')) !!}>
                     <div class="menu__icon">
                         <i data-lucide="calendar"></i>
                     </div>

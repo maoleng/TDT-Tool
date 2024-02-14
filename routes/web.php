@@ -49,7 +49,9 @@ Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static fun
             Route::post('/choose_department', [MailNotificationController::class, 'chooseDepartment'])->name('choose_department');
         });
         Route::group(['prefix' => 'build_schedule', 'as' => 'build_schedule.'], static function () {
-            Route::get('/', [BuildScheduleController::class, 'index'])->name('index');
+            Route::get('/', function () {
+                return redirect()->to('https://chromewebstore.google.com/detail/schedubuild/abapfijoemiamjhpjpmleehobbijplib');
+            })->name('index');
             Route::post('/store', [BuildScheduleController::class, 'store'])->name('store');
             Route::post('/download', [BuildScheduleController::class, 'downloadSchedule'])->name('download');
         });
